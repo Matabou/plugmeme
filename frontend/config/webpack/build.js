@@ -1,5 +1,6 @@
 const { resolve } = require('path');
 const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   context: resolve(__dirname, '../../src'),
@@ -15,12 +16,28 @@ module.exports = {
     rules: [
       {
         test: /\.js?$/,
-        use: [ 'babel-loader', 'eslint-loader', ],
-        exclude: /node_modules/
+        use: ['babel-loader'], // 'eslint-loader'],
+        exclude: /node_modules/,
       },
       {
-        test: /\.css$/,
-        use: [ 'style-loader', 'css-loader',  ]
+        test: /\.(css|scss)$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            'css-loader',
+            'resolve-url-loader',
+            {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: true,
+              },
+            },
+          ],
+        }),
+      },
+      {
+        test: /\.(svg|eot|ttf|woff|woff2)$/,
+        loader: 'file-loader',
       },
     ],
   },
@@ -30,6 +47,8 @@ module.exports = {
       minimize: true,
       debug: false
     }),
+
+    new ExtractTextPlugin('app.scss'),
 
     new webpack.optimize.UglifyJsPlugin({
       beautify: false,

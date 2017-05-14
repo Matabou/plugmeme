@@ -1,6 +1,7 @@
 const { resolve } = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   context: resolve(__dirname, '../../src'),
@@ -34,12 +35,28 @@ module.exports = {
     rules: [
       {
         test: /\.js?$/,
-        use: [ 'babel-loader', 'eslint-loader', ],
-        exclude: /node_modules/
+        use: ['babel-loader'], // 'eslint-loader'],
+        exclude: /node_modules/,
       },
       {
-        test: /\.css$/,
-        use: [ 'style-loader', 'css-loader',  ]
+        test: /\.(css|scss)$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            'css-loader',
+            'resolve-url-loader',
+            {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: true,
+              },
+            },
+          ],
+        }),
+      },
+      {
+        test: /\.(svg|eot|ttf|woff|woff2)$/,
+        loader: 'file-loader',
       },
     ],
   },
@@ -47,8 +64,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: '../public/index.html',
-      chunksSortMode: 'dependency'
+      chunksSortMode: 'dependency',
     }),
+    new ExtractTextPlugin('app.scss'),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
   ],

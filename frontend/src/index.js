@@ -5,7 +5,7 @@ import { createStore } from 'redux';
 import plugMemeApp from './reducers';
 import App from './components/App';
 
-import './styles.css';
+import './app.scss';
 
 const store = createStore(plugMemeApp);
 

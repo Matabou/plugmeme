@@ -2,30 +2,27 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
-import { cancelLoginModal } from '../../actions/LoginActions';
+import { cancelModal } from '../../actions/LoginActions';
+import firebase from '../../firebase';
 
 class LoginModal extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      login: '',
+      email: '',
       password: '',
+      errMsg: '',
     };
 
-    this.updateLogin = this.updateLogin.bind(this);
+    this.updateEmail = this.updateEmail.bind(this);
     this.updatePassword = this.updatePassword.bind(this);
     this.cancelModal = this.cancelModal.bind(this);
+    this.confirmModal = this.confirmModal.bind(this);
   }
 
-  /*
-  updateLogin = event => {
-    this.setState({ login: event.target.value });
-  };
-  */
-
-  updateLogin(event) {
-    this.setState({ login: event.target.value });
+  updateEmail(event) {
+    this.setState({ email: event.target.value });
   }
 
   updatePassword(event) {
@@ -33,7 +30,29 @@ class LoginModal extends Component {
   }
 
   cancelModal() {
-    this.props.dispatch(cancelLoginModal());
+    this.setState({
+      email: '',
+      password: '',
+      errMsg: '',
+    });
+
+    this.props.dispatch(cancelModal());
+  }
+
+  confirmModal() {
+    if (this.props.login.isLogin) {
+      firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+        .catch((error) => {
+          this.setState({ errMsg: error.message });
+        },
+      );
+    } else {
+      firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+        .catch((error) => {
+          this.setState({ errMsg: error.message });
+        },
+      );
+    }
   }
 
   render() {
@@ -46,18 +65,20 @@ class LoginModal extends Component {
         <div className="modal-background" />
         <div className="modal-card">
           <header className="modal-card-head">
-            <p className="modal-card-title">Login</p>
+            <p className="modal-card-title">
+              {this.props.login.isLogin ? 'Login' : 'Inscription'}
+            </p>
             <button onClick={this.cancelModal} className="delete" />
           </header>
           <section className="modal-card-body">
             <div className="field">
-              <label className="label">Login</label>
+              <label className="label">Email</label>
               <p className="control">
                 <input
                   className="input"
                   type="text"
-                  value={this.state.login}
-                  onChange={this.updateLogin}
+                  value={this.state.email}
+                  onChange={this.updateEmail}
                 />
               </p>
             </div>
@@ -72,10 +93,11 @@ class LoginModal extends Component {
                 />
               </p>
             </div>
+            {this.state.errMsg !== '' && <div className="notification is-danger">{this.state.errMsg}</div>}
           </section>
           <footer className="modal-card-foot">
-            <a className="button is-success">
-              Login
+            <a className="button is-success" onClick={this.confirmModal}>
+              {this.props.login.isLogin ? 'Login' : 'Confirme'}
             </a>
             <a className="button" onClick={this.cancelModal}>Cancel</a>
           </footer>

@@ -1,6 +1,19 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-export default class Navbar extends Component {
+import { displayLoginModal } from '../actions/LoginActions';
+
+class Navbar extends Component {
+  constructor(props) {
+    super(props);
+
+    this.displayLogin = this.displayLogin.bind(this);
+  }
+
+  displayLogin() {
+    this.props.dispatch(displayLoginModal());
+  }
+
   render() {
     return (
       <nav className="nav has-shadow">
@@ -13,10 +26,12 @@ export default class Navbar extends Component {
           </div>
           <div className="nav-right nav-menu">
             <a className="nav-item is-tab">Inscription</a>
-            <a className="nav-item is-tab">Login</a>
+            <a className="nav-item is-tab" onClick={this.displayLogin}>Login</a>
           </div>
         </div>
       </nav>
     );
   }
 }
+
+export default connect()(Navbar);

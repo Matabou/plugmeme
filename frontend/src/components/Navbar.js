@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 
 import { displayLoginModal } from '../actions/LoginActions';
 
@@ -19,7 +20,7 @@ class Navbar extends Component {
       <nav className="nav has-shadow">
         <div className="container">
           <div className="nav-left">
-            <a className="nav-item">PlugMeme</a>
+            <NavLink className="nav-item" to="/">PlugMeme</NavLink>
             <a className="nav-item is-tab is-active">Editeur</a>
             <a className="nav-item is-tab">Mes Memes</a>
             <a className="nav-item is-tab">Recherche</a>

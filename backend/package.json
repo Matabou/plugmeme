@@ -11,6 +11,7 @@
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "express-minify": "^0.2.0",
+    "firebase-admin": "^5.0.0",
     "nodemon": "^1.11.0"
   }
 }

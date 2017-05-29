@@ -29,20 +29,23 @@ class Navbar extends Component {
     return (
       <nav className="nav has-shadow">
         <div className="container">
-          <div className="nav-left">
-            <NavLink className="nav-item" to="/">PlugMeme</NavLink>
-            <a className="nav-item is-tab is-active">Editeur</a>
-            <a className="nav-item is-tab">Mes Memes</a>
-            <a className="nav-item is-tab">Recherche</a>
-          </div>
           {this.props.login.user === null || this.props.login.user === undefined ?
-            <div className="nav-right nav-menu">
-              <a className="nav-item is-tab" onClick={this.displayInscription}>Inscription</a>
-              <a className="nav-item is-tab" onClick={this.displayLogin}>Login</a>
+            <div className="nav-left">
+              <NavLink className="nav-item" to="/">PlugMeme</NavLink>
+              <div className="nav-right nav-menu">
+                <a className="nav-item is-tab" onClick={this.displayInscription}>Inscription</a>
+                <a className="nav-item is-tab" onClick={this.displayLogin}>Login</a>
+              </div>
             </div>
           :
-            <div className="nav-right nav-menu">
-              <a className="nav-item is-tab" onClick={this.displayLogout}>Logout</a>
+            <div className="nav-left">
+              <NavLink className="nav-item" to="/">PlugMeme</NavLink>
+              <NavLink className="nav-item is-tab is-active" to="/editeur">Editeur</NavLink>
+              <NavLink className="nav-item is-tab" to="/memes">Mes Memes</NavLink>
+              <NavLink className="nav-item is-tab" to="/recherche">Recherche</NavLink>
+              <div className="nav-right nav-menu">
+                <a className="nav-item is-tab" onClick={this.displayLogout}>Logout</a>
+              </div>
             </div>
           }
         </div>

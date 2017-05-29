@@ -41,10 +41,22 @@ class LoginModal extends Component {
 
   confirmModal() {
     if (this.props.login.isLogin) {
-      firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+      firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(function(user) {
+        user.getToken().then(function(token) {
+          
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST', 'http://localhost:4242/tokensignin');
+          xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+          xhr.onload = function() {
+            console.log('Signed in as: ' + xhr.responseText);
+          };
+          xhr.send('token=' + token);
+          
+          console.log(token)});
+      })
         .catch((error) => {
           this.setState({ errMsg: error.message });
-        },
+              },
       );
     } else {
       firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)

@@ -5,6 +5,9 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import LoginModal from './modal/LoginModal';
 import LogoutModal from './modal/LogoutModal';
+import ToolsPan from './editor/ToolsPan';
+import ImagesPan from './editor/ImagesPan';
+import EditorArea from './editor/EditorArea';
 
 import firebase from '../firebase';
 
@@ -14,7 +17,7 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    firebase.auth().onAuthStateChanged((user) => {
+    firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.props.dispatch(login(user));
       }
@@ -25,8 +28,10 @@ class App extends Component {
     return (
       <div>
         <Navbar />
-        <div className="container">
-          <h1>PlugMeme</h1>
+        <div className="level">
+          <ToolsPan />
+          <EditorArea />
+          <ImagesPan />
         </div>
         <LoginModal />
         <LogoutModal />

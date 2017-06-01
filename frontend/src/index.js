@@ -1,8 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux';
+import { createStore, applyMiddleware } from 'redux';
+import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import { Route } from 'react-router';
 
 import createHistory from 'history/createBrowserHistory';
@@ -26,10 +26,7 @@ const history = createHistory();
 const middleware = routerMiddleware(history);
 
 const store = createStore(
-  combineReducers({
-    ...plugMemeApp,
-    router: routerReducer,
-  }),
+  plugMemeApp, {},
   applyMiddleware(middleware),
 );
 

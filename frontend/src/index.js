@@ -10,13 +10,12 @@ import createHistory from 'history/createBrowserHistory';
 import plugMemeApp from './reducers';
 
 import Navbar from './components/Navbar';
-import Footer from './components/Footer';
 import LoginModal from './components/modal/LoginModal';
 import LogoutModal from './components/modal/LogoutModal';
 
 import App from './components/App';
 import Editor from './components/Editor';
-import Memes from './components/Memes';
+import Profil from './components/Profil';
 import Recherche from './components/Recherche';
 
 import './app.scss';
@@ -37,11 +36,10 @@ render(
         <Navbar />
         <Route exact path="/" component={App} />
         <Route path="/editeur" component={Editor} />
-        <Route path="/memes" component={Memes} />
+        <Route path="/profil" component={Profil} />
         <Route path="/recherche" component={Recherche} />
         <LoginModal />
         <LogoutModal />
-        <Footer />
       </div>
     </ConnectedRouter>
   </Provider>,

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-class Memes extends Component {
+class Profil extends Component {
   render() {
     return (
       <div />
@@ -9,4 +9,4 @@ class Memes extends Component {
   }
 }
 
-export default connect()(Memes);
+export default connect()(Profil);

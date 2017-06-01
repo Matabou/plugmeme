@@ -27,8 +27,8 @@ module.exports = {
     // enable HMR on the server
     contentBase: resolve(__dirname, 'dist'),
     // match the output path
-    publicPath: '/'
-    // match the output `publicPath`
+    publicPath: '/',
+    historyApiFallback: true
   },
 
   module: {

@@ -14,7 +14,7 @@ import Footer from './components/Footer';
 import LoginModal from './components/modal/LoginModal';
 import LogoutModal from './components/modal/LogoutModal';
 
-import App from './components';
+import App from './components/App';
 import Editor from './components/Editor';
 import Memes from './components/Memes';
 import Recherche from './components/Recherche';

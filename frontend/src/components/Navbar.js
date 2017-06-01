@@ -2,11 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-import { displayLoginModal, displayInscriptionModal, displayLogoutModal } from '../actions/LoginActions';
+import firebase from '../firebase';
+
+import { login, displayLoginModal, displayInscriptionModal, displayLogoutModal } from '../actions/LoginActions';
 
 class Navbar extends Component {
   constructor(props) {
     super(props);
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.props.dispatch(login(user));
+      }
+    });
 
     this.displayLogin = this.displayLogin.bind(this);
     this.displayInscription = this.displayInscription.bind(this);

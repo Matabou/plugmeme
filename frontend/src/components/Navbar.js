@@ -23,6 +23,7 @@ class Navbar extends Component {
 
   displayLogout() {
     this.props.dispatch(displayLogoutModal());
+    console.log(this.context);
   }
 
   render() {

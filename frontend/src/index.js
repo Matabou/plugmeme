@@ -1,9 +1,11 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux';
 import { Route } from 'react-router';
-import { BrowserRouter } from 'react-router-dom';
+
+import createHistory from 'history/createBrowserHistory';
 
 import plugMemeApp from './reducers';
 
@@ -19,11 +21,21 @@ import Recherche from './components/Recherche';
 
 import './app.scss';
 
-const store = createStore(plugMemeApp);
+const history = createHistory();
+
+const middleware = routerMiddleware(history);
+
+const store = createStore(
+  combineReducers({
+    ...plugMemeApp,
+    router: routerReducer,
+  }),
+  applyMiddleware(middleware),
+);
 
 render(
   <Provider store={store}>
-    <BrowserRouter>
+    <ConnectedRouter history={history}>
       <div>
         <Navbar />
         <Route exact path="/" component={App} />
@@ -34,7 +46,7 @@ render(
         <LogoutModal />
         <Footer />
       </div>
-    </BrowserRouter>
+    </ConnectedRouter>
   </Provider>,
   document.getElementById('root'),
 );

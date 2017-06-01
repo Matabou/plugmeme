@@ -10,7 +10,7 @@ module.exports = {
     'react-hot-loader/patch',
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
-    './index.js'
+    './index.js',
     // the entry point of our app
   ],
 
@@ -18,17 +18,18 @@ module.exports = {
     path: resolve(__dirname, '../../dist'),
     filename: '[name].bundle.js',
     publicPath: '/',
-    sourceMapFilename: '[name].map'
+    sourceMapFilename: '[name].map',
   },
 
   devtool: 'inline-source-map',
 
-  devServer: {hot: true,
+  devServer: {
+    hot: true,
     // enable HMR on the server
     contentBase: resolve(__dirname, 'dist'),
     // match the output path
     publicPath: '/',
-    historyApiFallback: true
+    historyApiFallback: true,
   },
 
   module: {
@@ -57,6 +58,14 @@ module.exports = {
       {
         test: /\.(svg|eot|ttf|woff|woff2)$/,
         loader: 'file-loader',
+      },
+      {
+        test: /\.(png|jpe?g)$/,
+        use: [
+          {
+            loader: 'url-loader',
+          },
+        ],
       },
     ],
   },

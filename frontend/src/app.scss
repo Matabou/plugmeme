@@ -4,3 +4,20 @@
 h1 {
   font-size: 30px;
 }
+
+.image-is-centered {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.profile {
+  .image-is-centered {
+    margin-bottom: 10px;
+  }
+}
+
+.memes {
+  .meme {
+    margin-bottom: 20px;    
+  }
+}

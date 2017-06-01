@@ -23,10 +23,12 @@ class Navbar extends Component {
 
   displayLogout() {
     this.props.dispatch(displayLogoutModal());
-    console.log(this.context);
   }
 
   render() {
+    const path = this.props.router.location ? this.props.router.location.pathname : '/';
+    const navLinkClassName = 'nav-item is-tab';
+
     return (
       <nav className="nav has-shadow">
         <div className="container">
@@ -41,9 +43,9 @@ class Navbar extends Component {
           :
             <div className="nav-left">
               <NavLink className="nav-item" to="/">PlugMeme</NavLink>
-              <NavLink className="nav-item is-tab is-active" to="/editeur">Editeur</NavLink>
-              <NavLink className="nav-item is-tab" to="/memes">Mes Memes</NavLink>
-              <NavLink className="nav-item is-tab" to="/recherche">Recherche</NavLink>
+              <NavLink className={path === '/editeur' ? `${navLinkClassName} is-active` : navLinkClassName} to="/editeur">Editeur</NavLink>
+              <NavLink className={path === '/memes' ? `${navLinkClassName} is-active` : navLinkClassName} to="/memes">Mes Memes</NavLink>
+              <NavLink className={path === '/recherche' ? `${navLinkClassName} is-active` : navLinkClassName} to="/recherche">Recherche</NavLink>
               <div className="nav-right nav-menu">
                 <a className="nav-item is-tab" onClick={this.displayLogout}>Logout</a>
               </div>
@@ -58,6 +60,7 @@ class Navbar extends Component {
 const mapStateToProps = (state) => {
   return {
     login: state.login,
+    router: state.router,
   };
 };
 

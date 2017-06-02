@@ -20,15 +20,23 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+  res.header("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Authorization");
   res.header("Access-Control-Allow-Methods", ["GET, POST, OPTIONS, PUT, DELETE"]);
   next();
 });
+
+
 app.post('/tokensignin',function(request,response){
-  console.log("toekn is : " + request.body.token);
-  admin.auth().verifyIdToken(request.body.token)
+  admin.auth().verifyIdToken(request.header("Authorization"))
   .then(function(decodedToken) {
     var uid = decodedToken.uid;
+    admin.auth().getUser(uid)
+    .then(function(userRecord) {
+      response.json(userRecord.toJSON());
+    })
+    .catch(function(error) {
+    console.log("Error fetching user data:", error);
+  });
     console.log("Token is correct")
     // ...
   }).catch(function(error) {

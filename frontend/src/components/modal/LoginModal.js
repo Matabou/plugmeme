@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 import { cancelModal } from '../../actions/LoginActions';
 import firebase from '../../firebase';
+import PMApiClient from '../../apiUtil';
 
 class LoginModal extends Component {
   constructor(props) {
@@ -43,16 +44,13 @@ class LoginModal extends Component {
     if (this.props.login.isLogin) {
       firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(function(user) {
         user.getToken().then(function(token) {
-          
-          var xhr = new XMLHttpRequest();
-          xhr.open('POST', 'http://localhost:4242/tokensignin');
-          xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-          xhr.onload = function() {
-            console.log('Signed in as: ' + xhr.responseText);
-          };
-          xhr.send('token=' + token);
-          
-          console.log(token)});
+          let api = new PMApiClient(token);
+          api.api("tokensignin").then(function(data) {
+            console.log("this is the data ", data);
+          }).catch(function(error) {
+            console.log('request failed', error)
+          });
+        });
       })
         .catch((error) => {
           this.setState({ errMsg: error.message });

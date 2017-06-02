@@ -18,7 +18,22 @@ class ImagePan extends Component {
   render() {
     return (
       <div className="level-right">
-        <div className="box">
+        <div className="box pic-container">
+          <div className="box">
+            <figure className="image is-128x128 child">
+              <img src="http://bulma.io/images/placeholders/256x256.png" />
+            </figure>
+          </div>
+          <div className="box">
+            <figure className="image is-128x128 child">
+              <img src="http://bulma.io/images/placeholders/256x256.png" />
+            </figure>
+          </div>
+          <div className="box">
+            <figure className="image is-128x128 child">
+              <img src="http://bulma.io/images/placeholders/256x256.png" />
+            </figure>
+          </div>
           <div className="box">
             <figure className="image is-128x128 child">
               <img src="http://bulma.io/images/placeholders/256x256.png" />

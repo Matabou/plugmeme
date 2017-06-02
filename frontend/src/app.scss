@@ -59,6 +59,12 @@ h1 {
 
 .memes {
   .meme {
-    margin-bottom: 20px;    
+    margin-bottom: 20px;
   }
+}
+
+.pic-container {
+    height: 100vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }

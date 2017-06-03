@@ -14,7 +14,7 @@ import LoginModal from './components/modal/LoginModal';
 import LogoutModal from './components/modal/LogoutModal';
 
 import Home from './components/Home';
-import Editor from './components/Editor';
+import Editor from './components/editor';
 import Profil from './components/Profil';
 import Recherche from './components/Recherche';
 
@@ -24,10 +24,7 @@ const history = createHistory();
 
 const middleware = routerMiddleware(history);
 
-const store = createStore(
-  plugMemeApp, {},
-  applyMiddleware(middleware),
-);
+const store = createStore(plugMemeApp, {}, applyMiddleware(middleware));
 
 render(
   <Provider store={store}>
@@ -43,5 +40,5 @@ render(
       </div>
     </ConnectedRouter>
   </Provider>,
-  document.getElementById('root'),
+  document.getElementById('root')
 );

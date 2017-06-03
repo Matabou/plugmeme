@@ -4,46 +4,43 @@ class ToolsPan extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      high_text: '',
-      bottom_text: ''
-    };
-
-    this.updateHighText = this.updateHighText.bind(this);
-    this.updateBottomText = this.updateBottomText.bind(this);
+    this.handleTopTextChange = this.handleTopTextChange.bind(this);
+    this.handleBottomTextChange = this.handleBottomTextChange.bind(this);
   }
 
-  updateHighText(event) {
-    this.setState({ high_text: event.target.value });
+  handleTopTextChange(event) {
+    this.props.onTopTextChange(event.target.value);
   }
 
-  updateBottomText(event) {
-    this.setState({ bottom_text: event.target.value });
+  handleBottomTextChange(event) {
+    this.props.onBottomTextChange(event.target.value);
   }
 
   render() {
+    const topText = this.props.topText;
+    const bottomText = this.props.bottomText;
     return (
       <div className="level-left">
         <div className="box">
           <div className="field">
-            <label className="label">Text haut</label>
+            <label className="label">Top text</label>
             <p className="control">
               <input
                 className="input"
                 type="text"
-                value={this.state.high_text}
-                onChange={this.updateHighText}
+                value={topText}
+                onChange={this.handleTopTextChange}
               />
             </p>
           </div>
           <div className="field">
-            <label className="label">Text bas</label>
+            <label className="label">Bottom text</label>
             <p className="control">
               <input
                 className="input"
                 type="text"
-                value={this.state.bottom_text}
-                onChange={this.updateBottomText}
+                value={bottomText}
+                onChange={this.handleBottomTextChange}
               />
             </p>
           </div>

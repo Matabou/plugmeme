@@ -26,23 +26,43 @@ app.use(function(req, res, next) {
 });
 
 
-app.post('/tokensignin',function(request,response){
-  admin.auth().verifyIdToken(request.header("Authorization"))
-  .then(function(decodedToken) {
-    var uid = decodedToken.uid;
-    admin.auth().getUser(uid)
-    .then(function(userRecord) {
-      response.json(userRecord.toJSON());
+var apiRoutes = express.Router();
+
+function checkToken(req, res, next) {
+ let token = req.header("Authorization");
+  // decode token
+  if (token) {
+    admin.auth().verifyIdToken(token)
+    .then(function(decodedToken) {
+      let uid = decodedToken.uid;
+      admin.auth().getUser(uid)
+      .then(function(userRecord) {
+        req.params.user = userRecord;
+        next()
     })
     .catch(function(error) {
-    console.log("Error fetching user data:", error);
-  });
-    console.log("Token is correct")
-    // ...
+      console.log("Error fetching user data:", error);
+      return res.json({ success: false, message: 'Failed to fetch user data.' });  
+    });
   }).catch(function(error) {
     // Handle error
-    console.log("Token is NOT correct")
+    return res.json({ success: false, message: 'Failed to authenticate token.' });  
   });
+
+  } else {
+    // if there is no token
+    // return an error
+    return res.status(403).send({ 
+        success: false, 
+        message: 'No token provided.' 
+    });
+
+  }
+}
+
+app.post('/api/tokensignin', checkToken, function(request,response) {
+  let user = request.params.user;
+  response.json(user.toJSON());
 
 });
 // start your server

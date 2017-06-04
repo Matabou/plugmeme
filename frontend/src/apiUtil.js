@@ -5,7 +5,7 @@ class PMApiClient {
     constructor(token, apiUrl) {
         this.token = token;
         if(!apiUrl) {
-            this.apiUrl = "http://localhost:4242/";
+            this.apiUrl = "http://localhost:4242";
         }
         else {
             this.apiUrl = apiUrl;

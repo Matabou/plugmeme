@@ -7,6 +7,11 @@ export default function Memes(memes) {
         memes.map((meme) => {
           return (
             <div className="card meme" key={meme.id}>
+              <div className="card-header">
+                <p className="card-header-title">
+                  Meme Title
+                </p>
+              </div>
               <div className="card-image">
                 <figure className="image is-4by3">
                   <img src="http://bulma.io/images/placeholders/1280x960.png" alt="content" />

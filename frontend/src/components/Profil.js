@@ -118,8 +118,8 @@ class Profil extends Component {
           </ul>
         </div>
         <div className="columns">
-          <div className="column is-one-third" />
-          <div className="column">
+          <div className="column is-one-quarter" />
+          <div className="column is-half">
             {this.section()}
           </div>
           <div className="column" />

@@ -45,7 +45,7 @@ class LoginModal extends Component {
       firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(function(user) {
         user.getToken().then(function(token) {
           let api = new PMApiClient(token);
-          api.api("tokensignin").then(function(data) {
+          api.api("/api/tokensignin").then(function(data) {
             console.log("this is the data ", data);
           }).catch(function(error) {
             console.log('request failed', error)

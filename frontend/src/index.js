@@ -13,7 +13,7 @@ import Navbar from './components/Navbar';
 import LoginModal from './components/modal/LoginModal';
 import LogoutModal from './components/modal/LogoutModal';
 
-import App from './components/App';
+import Home from './components/Home';
 import Editor from './components/Editor';
 import Profil from './components/Profil';
 import Recherche from './components/Recherche';
@@ -34,7 +34,7 @@ render(
     <ConnectedRouter history={history}>
       <div>
         <Navbar />
-        <Route exact path="/" component={App} />
+        <Route exact path="/" component={Home} />
         <Route path="/editeur" component={Editor} />
         <Route path="/profil" component={Profil} />
         <Route path="/recherche" component={Recherche} />

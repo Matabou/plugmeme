@@ -1,6 +1,10 @@
 @import "~bulma";
 @import "~font-awesome/scss/font-awesome.scss";
 
+.title {
+  font-size: 45px;
+}
+
 h1 {
   font-size: 30px;
 }
@@ -8,6 +12,26 @@ h1 {
 .image-is-centered {
   margin-right: auto;
   margin-left: auto;
+}
+
+.home {
+  .container {
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
+
+  .best-memes {
+    padding: 0;
+
+    figure {
+      margin: 10px;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 20px;
+    }
+  }
 }
 
 .profile {

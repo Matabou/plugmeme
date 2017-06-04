@@ -42,7 +42,8 @@ class Navbar extends Component {
         <div className="container">
           {this.props.login.user === null || this.props.login.user === undefined ?
             <div className="nav-left">
-              <NavLink className="nav-item" to="/">PlugMeme</NavLink>
+              <NavLink className={path === '/' ? `${navLinkClassName} is-active` : navLinkClassName} to="/">PlugMeme</NavLink>
+              <NavLink className={path === '/recherche' ? `${navLinkClassName} is-active` : navLinkClassName} to="/recherche">Recherche</NavLink>
               <div className="nav-right nav-menu">
                 <a className="nav-item is-tab" onClick={this.displayInscription}>Inscription</a>
                 <a className="nav-item is-tab" onClick={this.displayLogin}>Login</a>
@@ -50,7 +51,7 @@ class Navbar extends Component {
             </div>
           :
             <div className="nav-left">
-              <NavLink className="nav-item" to="/">PlugMeme</NavLink>
+              <NavLink className={path === '/' ? `${navLinkClassName} is-active` : navLinkClassName} to="/">PlugMeme</NavLink>
               <NavLink className={path === '/editeur' ? `${navLinkClassName} is-active` : navLinkClassName} to="/editeur">Editeur</NavLink>
               <NavLink className={path === '/profil' ? `${navLinkClassName} is-active` : navLinkClassName} to="/profil">Profil</NavLink>
               <NavLink className={path === '/recherche' ? `${navLinkClassName} is-active` : navLinkClassName} to="/recherche">Recherche</NavLink>

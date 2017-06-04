@@ -32,6 +32,23 @@ h1 {
       font-size: 20px;
     }
   }
+
+  .equipe {
+
+    height: 450px;
+
+    .box {
+      margin-right: auto;
+      margin-left: auto;
+      width: 240px;
+      height: 350px;
+    }
+
+    .image-equipe {
+      width: 200px;
+      height: 250px;
+    }
+  }
 }
 
 .profile {

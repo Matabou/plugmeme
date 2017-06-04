@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import Footer from './Footer';
+
+import chabroA from '../../public/media/chabro_a.jpg';
+import cormerB from '../../public/media/cormer_b.jpg';
+import lehuenA from '../../public/media/lehuen_a.jpg';
+
+
 class Home extends Component {
   render() {
     return (
@@ -19,30 +26,15 @@ class Home extends Component {
         <div className="container">
           <h1>Le projet PlugMeme</h1>
           <hr />
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam elementum augue
-            id sapien sodales lacinia.
-            Vestibulum ac libero neque. Cras et sagittis risus, non vulputate nisi.
-            Nunc felis massa, aliquam id laoreet id
-             pretium at odio. Maecenas commodo viverra consectetur.
-             Nulla sit amet imperdiet nunc. Sed tortor sapien, porta
-             non nisi sit amet, faucibus imperdiet ante. Proin mattis
-             dapibus arcu, sit amet finibus urna. Morbi ac
-             nim. Praesent lacinia massa vitae orci auctor lacinia. In
-             blandit lorem consequat leo lobortis, egestas condim
-             ntum arcu blandit. Praesent rhoncus maximus nisi, ultricies
-             fringilla odio ornare ac. Proin at diam e</p>
-          <p>Us facilisis lacinia. Quisque nec ipsum ac magna pulvinar
-             eleifend. Nulla eget aliquet sem. Pellentesq
-             e aliquet, orci at bibendum pulvinar, mauris justo fringilla
-             ipsum, vitae consequat velit odio euismod
-             dolor. Orci varius natoque penatibus et magnis dis parturient
-             montes, nascetur ridiculus mus. Pellentes
-             ue ut faucibus nisi. Ut rhoncus ultricies quam sed porta
-              Nulla egestas sapien at augue molestie, at ultr
-             ces tellus pellentesque. Sed eu tincidunt ligula. Proin
-             vehicula ornare lacus non consectetur. Ut laoreet
-             lacus a mattis hendrerit. Sed malesuada aliquet gravida.
-             Pellentesque ac elementum nulla, vulputate tincidunt est.</p>
+          <p>Le projet PlugMeme est un éditeur de meme permettant
+            de partager ces plus belles créations. Pour pouvoir
+            commencer votre création de meme vous devrez vous créer
+            un compte sur ce magnifique site. Vous pouvez aussi
+            des a présent rechercher les meilleurs memes de la plateforme.
+            Un système de vote est aussi en place vous permettant de
+            mettre en avant les créations que vous préférez.</p>
+          <p>Ce projet a été produit par la team PlugTeam dans
+            e cadre du projet Js du premier semestre de l'année MTI au sein de l'EPITA.</p>
         </div>
         <section className="hero is-light">
           <div className="hero-body best-memes">
@@ -90,30 +82,37 @@ class Home extends Component {
             </div>
           </div>
         </section>
-        <div className="container">
-          <h1>L equipe</h1>
+        <div className="container equipe">
+          <h1>La Team</h1>
           <hr />
           <div className="columns has-text-centered">
             <div className="column is-one-third">
-              <figure className="image image-is-centered is-128x128">
-                <img src="http://bulma.io/images/placeholders/1280x960.png" alt="content" />
+              <div className="box">
+              <figure className="image image-is-centered image-equipe">
+                <img src={chabroA} alt="content" />
+                <h3>Alexandre Chabrolin</h3>
               </figure>
-              <h3>Alexandre Chabrolin</h3>
+              </div>
             </div>
             <div className="column">
-              <figure className="image image-is-centered is-128x128">
-                <img src="http://bulma.io/images/placeholders/1280x960.png" alt="content" />
+              <div className="box">
+              <figure className="image image-is-centered image-equipe">
+                <img src={cormerB} alt="content" />
+                <h3>Antoine Cormerais</h3>
               </figure>
-              <h3>Antoine Cormerais</h3>
+              </div>
             </div>
             <div className="column">
-              <figure className="image image-is-centered is-128x128">
-                <img src="http://bulma.io/images/placeholders/1280x960.png" alt="content" />
+              <div className="box">
+              <figure className="image image-is-centered image-equipe">
+                <img src={lehuenA} alt="content" />
+                <h3>Arthur Lehuen</h3>
               </figure>
-              <h3>Arthur Lehuen</h3>
+              </div>
             </div>
           </div>
         </div>
+        <Footer />
       </div>
     );
   }

@@ -4,6 +4,9 @@ import { fabric } from 'fabric';
 class EditorArea extends Component {
   constructor(props) {
     super(props);
+
+    this.refreshCanvas = this.refreshCanvas.bind(this);
+
     this.fabricCanvas = new fabric.Canvas(this.refs.canvas);
     this.topTextObj = new fabric.Text(this.props.topText, {
       left: 300,
@@ -17,18 +20,30 @@ class EditorArea extends Component {
 
   componentDidMount() {
     this.fabricCanvas = new fabric.Canvas(this.refs.canvas);
-    fabric.Image.fromURL(this.props.image, oImg => {
-      oImg.set('selectable', false);
-      this.fabricCanvas.add(oImg);
+    this.fabricCanvas.setBackgroundImage(this.props.image, () => {
+      this.refreshCanvas();
     });
     this.fabricCanvas.add(this.topTextObj);
     this.fabricCanvas.add(this.bottomTextObj);
+  }
+
+  refreshCanvas() {
+    this.fabricCanvas.backgroundImage.scaleToWidth(this.fabricCanvas.width);
+    this.fabricCanvas.backgroundImage.scaleToHeight(this.fabricCanvas.height);
+    this.fabricCanvas.centerObject(this.fabricCanvas.backgroundImage);
+    this.fabricCanvas.renderAll();
   }
 
   render() {
     this.topTextObj.set('text', this.props.topText);
     this.bottomTextObj.set('text', this.props.bottomText);
     this.fabricCanvas.renderAll();
+    if (this.props.needRefreshImage) {
+      this.fabricCanvas.setBackgroundImage(this.props.image, () => {
+        this.refreshCanvas();
+        this.props.handleImageRefreshed();
+      });
+    }
     return (
       <div className="column">
         <div className="box">

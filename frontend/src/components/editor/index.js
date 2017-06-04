@@ -11,15 +11,22 @@ class Editor extends Component {
     this.handleImageChange = this.handleImageChange.bind(this);
     this.handleTopTextChange = this.handleTopTextChange.bind(this);
     this.handleBottomTextChange = this.handleBottomTextChange.bind(this);
+    this.handleImageRefreshed = this.handleImageRefreshed.bind(this);
     this.state = {
       image: 'http://lorempixel.com/200/200/',
       topText: '',
-      bottomText: ''
+      bottomText: '',
+      needRefreshImage: false
     };
   }
 
   handleImageChange(imagePath) {
     this.setState({ image: imagePath });
+    this.setState({ needRefreshImage: true });
+  }
+
+  handleImageRefreshed() {
+    this.setState({ needRefreshImage: false });
   }
 
   handleTopTextChange(text) {
@@ -34,7 +41,7 @@ class Editor extends Component {
     const topText = this.state.topText;
     const bottomText = this.state.bottomText;
     const image = this.state.image;
-
+    const needRefreshImage = this.state.needRefreshImage;
     return (
       <div className="level">
         <ToolsPan
@@ -43,7 +50,13 @@ class Editor extends Component {
           onTopTextChange={this.handleTopTextChange}
           onBottomTextChange={this.handleBottomTextChange}
         />
-        <EditorArea topText={topText} bottomText={bottomText} image={image} />
+        <EditorArea
+          topText={topText}
+          bottomText={bottomText}
+          image={image}
+          needRefreshImage={needRefreshImage}
+          handleImageRefreshed={this.handleImageRefreshed}
+        />
         <ImagesPan onImageChange={this.handleImageChange} />
       </div>
     );

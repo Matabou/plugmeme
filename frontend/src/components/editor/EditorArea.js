@@ -8,13 +8,23 @@ class EditorArea extends Component {
     this.refreshCanvas = this.refreshCanvas.bind(this);
 
     this.fabricCanvas = new fabric.Canvas(this.refs.canvas);
-    this.topTextObj = new fabric.Text(this.props.topText, {
+    this.topTextObj = new fabric.Text(this.props.topText.toUpperCase(), {
       left: 300,
-      top: 100
+      top: 100,
+      fontFamily: 'Impact',
+      fontSize: 50,
+      stroke: '#000000',
+      strokeWidth: 1,
+      fill: '#ffffff'
     });
-    this.bottomTextObj = new fabric.Text(this.props.bottomText, {
+    this.bottomTextObj = new fabric.Text(this.props.bottomText.toUpperCase(), {
       left: 300,
-      top: 400
+      top: 400,
+      fontFamily: 'Impact',
+      fontSize: 50,
+      stroke: '#000000',
+      strokeWidth: 1,
+      fill: '#ffffff'
     });
   }
 
@@ -35,8 +45,8 @@ class EditorArea extends Component {
   }
 
   render() {
-    this.topTextObj.set('text', this.props.topText);
-    this.bottomTextObj.set('text', this.props.bottomText);
+    this.topTextObj.set('text', this.props.topText.toUpperCase());
+    this.bottomTextObj.set('text', this.props.bottomText.toUpperCase());
     this.fabricCanvas.renderAll();
     if (this.props.needRefreshImage) {
       this.fabricCanvas.setBackgroundImage(this.props.image, () => {

@@ -1,20 +1,16 @@
 import PMApiClient from '../apiUtil';
 
-const validateToken = (dispatch, token) => {
-  return (dispatch, getState) => {
-    const api = new PMApiClient(token);
-    api.api('/api/tokensignin').then((data) => {
-      console.log('this is the data ', data);
-    }).catch((error) => {
-      console.log('request failed', error);
-    });
-  };
-};
-
 const login = (user) => {
   return {
     type: 'LOGIN',
     user: user,
+  };
+};
+
+const failLogin = (error) => {
+  return {
+    type: 'LOGIN_FAIL',
+    error: error,
   };
 };
 
@@ -24,8 +20,20 @@ const logout = () => {
   };
 };
 
+const validateUser = (dispatch, user) => {
+  user.getToken().then((token) => {
+    const api = new PMApiClient(token);
+    api.api('/api/tokensignin').then((userData) => {
+      dispatch(login(userData));
+    }).catch((error) => {
+      dispatch(failLogin(error));
+    });
+  });
+};
+
 export default {
-  validateToken,
+  validateUser,
   login,
+  failLogin,
   logout,
 };

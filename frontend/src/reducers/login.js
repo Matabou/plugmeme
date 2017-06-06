@@ -5,6 +5,11 @@ const login = (state = {}, action) => {
         ...state,
         user: action.user,
       };
+    case 'LOGIN_FAIL':
+      return {
+        ...state,
+        user: null,
+      };
     case 'LOGOUT':
       return {
         ...state,

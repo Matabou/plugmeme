@@ -86,10 +86,9 @@ class Profil extends Component {
   }
 
   render() {
+    if (!this.props.login.user) return (<div />);
 
-    console.log(this.props.login.user);
-    const userMail = this.props.login.user ? this.props.login.user.email : '';
-    const username = this.props.login.user ? this.props.login.user.username : '';
+    const { email, username } = this.props.login.user;
 
     return (
       <div>
@@ -104,7 +103,7 @@ class Profil extends Component {
                   {username}
                 </h1>
                 <h2 className="subtitle">
-                  {userMail}
+                  {email}
                 </h2>
               </div>
             </div>

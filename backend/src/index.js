@@ -22,6 +22,8 @@ app.use(function(req, res, next) {
 
 var apiRoutes = express.Router();
 
+db.initDatabase();
+
 app.get('/api/tokensignin', firebaseAuth.checkToken, function(request,response) {
   let user = request.params.user.toJSON();
   user.username = "SuperPlop";

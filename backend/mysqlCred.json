@@ -1,5 +1,6 @@
 {
   "host": "localhost",
+  "database": "plugmeme",
   "user": "root",
   "password": "root"
 }

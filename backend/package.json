@@ -5,13 +5,14 @@
   "author": "plugTeam",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon src/index.js"
   },
   "dependencies": {
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "express-minify": "^0.2.0",
     "firebase-admin": "^5.0.0",
+    "mysql": "^2.13.0",
     "nodemon": "^1.11.0",
     "whatwg-fetch": "^2.0.3"
   }

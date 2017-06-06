@@ -81,12 +81,15 @@ class Profil extends Component {
       case 'memes':
         return Memes(this.state.memes);
       default:
-        return (<div />)
+        return (<div />);
     }
   }
 
   render() {
+
+    console.log(this.props.login.user);
     const userMail = this.props.login.user ? this.props.login.user.email : '';
+    const username = this.props.login.user ? this.props.login.user.username : '';
 
     return (
       <div>
@@ -98,7 +101,7 @@ class Profil extends Component {
                   <img src={defaultUserProfilPicture} className="is-centered" alt="profile" />
                 </figure>
                 <h1 className="title">
-                  MrMatabou
+                  {username}
                 </h1>
                 <h2 className="subtitle">
                   {userMail}

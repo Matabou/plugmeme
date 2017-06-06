@@ -13,7 +13,8 @@ class Navbar extends Component {
 
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        this.props.dispatch(LoginActions.login(user));
+        this.props.dispatch(LoginActions.validateToken('12'));
+        // this.props.dispatch(LoginActions.login(user));
       }
     });
 

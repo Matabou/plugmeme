@@ -56,7 +56,7 @@ function checkToken(req, res, next) {
   }
 }
 
-app.post('/api/tokensignin', checkToken, function(request,response) {
+app.get('/api/tokensignin', checkToken, function(request,response) {
   let user = request.params.user;
   response.json(user.toJSON());
 

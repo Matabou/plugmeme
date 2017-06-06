@@ -1,13 +1,14 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
+import thunk from 'redux-thunk';
 import { Route } from 'react-router';
 
 import createHistory from 'history/createBrowserHistory';
 
-import plugMemeApp from './reducers';
+import rootReducer from './reducers';
 
 import Navbar from './components/Navbar';
 import LoginModal from './components/modal/LoginModal';
@@ -23,9 +24,16 @@ import './app.scss';
 
 const history = createHistory();
 
-const middleware = routerMiddleware(history);
+const middlewares = [
+  thunk,
+  routerMiddleware(history),
+];
 
-const store = createStore(plugMemeApp, {}, applyMiddleware(middleware));
+const store = createStore(
+  combineReducers(rootReducer),
+  {},
+  applyMiddleware(...middlewares),
+);
 
 render(
   <Provider store={store}>

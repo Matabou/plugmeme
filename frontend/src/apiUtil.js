@@ -17,14 +17,13 @@ class PMApiClient {
     this.apiUrl = apiUrl || 'http://localhost:4242';
   }
 
-  api(method, params) {
-    const that = this;
+  api(url, params, method = 'GET') {
     return new Promise((resolve, reject) => {
-      fetch(that.apiUrl + method, {
-        method: 'POST',
+      fetch(this.apiUrl + url, {
+        method: method,
         headers: {
           'Content-Type': 'application/json',
-          Authorization: that.token,
+          Authorization: this.token,
         },
         body: JSON.stringify(params),
       })

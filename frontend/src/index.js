@@ -11,6 +11,7 @@ import plugMemeApp from './reducers';
 
 import Navbar from './components/Navbar';
 import LoginModal from './components/modal/LoginModal';
+import InscriptionModal from './components/modal/InscriptionModal';
 import LogoutModal from './components/modal/LogoutModal';
 
 import Home from './components/Home';
@@ -37,8 +38,9 @@ render(
         <Route path="/recherche" component={Recherche} />
         <LoginModal />
         <LogoutModal />
+        <InscriptionModal />
       </div>
     </ConnectedRouter>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );

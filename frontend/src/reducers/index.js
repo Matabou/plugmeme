@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
-import fetch from './fetch';
 import login from './login';
+import modal from './modal';
 
 const plugMemeApp = combineReducers({
-  fetch,
+  modal,
   login,
   router: routerReducer,
 });

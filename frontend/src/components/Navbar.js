@@ -4,7 +4,8 @@ import { NavLink } from 'react-router-dom';
 
 import firebase from '../firebase';
 
-import { login, displayLoginModal, displayInscriptionModal, displayLogoutModal } from '../actions/LoginActions';
+import LoginActions from '../actions/LoginActions';
+import ModalActions from '../actions/ModalActions';
 
 class Navbar extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class Navbar extends Component {
 
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        this.props.dispatch(login(user));
+        this.props.dispatch(LoginActions.login(user));
       }
     });
 
@@ -22,15 +23,15 @@ class Navbar extends Component {
   }
 
   displayLogin() {
-    this.props.dispatch(displayLoginModal());
+    this.props.dispatch(ModalActions.displayModal('LOGIN'));
   }
 
   displayInscription() {
-    this.props.dispatch(displayInscriptionModal());
+    this.props.dispatch(ModalActions.displayModal('INSCRIPTION'));
   }
 
   displayLogout() {
-    this.props.dispatch(displayLogoutModal());
+    this.props.dispatch(ModalActions.displayModal('LOGOUT'));
   }
 
   render() {

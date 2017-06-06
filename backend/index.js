@@ -2,14 +2,10 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const fs = require('fs');
 const minify = require('express-minify');
-const admin = require("firebase-admin");
+const admin = require('firebase-admin');
 const util = require('util')
 
-
-
-const serviceAccount = require("./cred.json");
-
-
+const serviceAccount = require('./cred.json');
 
 const app = express();
 

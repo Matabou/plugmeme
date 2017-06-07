@@ -7,9 +7,19 @@ import chabroA from '../../public/media/chabro_a.jpg';
 import cormerB from '../../public/media/cormer_b.jpg';
 import lehuenA from '../../public/media/lehuen_a.jpg';
 
+import HomeActions from '../actions/HomeActions';
 
 class Home extends Component {
+  componentWillMount() {
+    HomeActions.fetchHomeMemeIfNeeded(
+      this.props.dispatch,
+      this.props.home,
+    );
+  }
+
   render() {
+    const homeMemes = this.props.home.memes;
+
     return (
       <div className="home">
         <section className="hero is-primary">
@@ -34,8 +44,9 @@ class Home extends Component {
             Un système de vote est aussi en place vous permettant de
             mettre en avant les créations que vous préférez.</p>
           <p>Ce projet a été produit par la team PlugTeam dans
-            e cadre du projet Js du premier semestre de l'année MTI au sein de l'EPITA.</p>
+            le cadre du projet Js du premier semestre de l'année MTI au sein de l'EPITA.</p>
         </div>
+        {homeMemes &&
         <section className="hero is-light">
           <div className="hero-body best-memes">
             <div className="container">
@@ -44,44 +55,42 @@ class Home extends Component {
               <div className="columns has-text-centered">
                 <div className="column is-one-third">
                   <h2>Meilleur Memes</h2>
-                  <figure className="image is-4by3">
-                    <img src="http://bulma.io/images/placeholders/1280x960.png" alt="content" />
-                  </figure>
-                  <figure className="image is-4by3">
-                    <img src="http://bulma.io/images/placeholders/1280x960.png" alt="content" />
-                  </figure>
-                  <figure className="image is-4by3">
-                    <img src="http://bulma.io/images/placeholders/1280x960.png" alt="content" />
-                  </figure>
+                  { homeMemes.best.map((meme) => {
+                    return (
+                      <figure className="image is-4by3" key={meme.id}>
+                        <img src={meme.data} alt={meme.title} />
+                      </figure>
+                    );
+                  })
+                  }
                 </div>
                 <div className="column">
                   <h2>Nouveaux Memes</h2>
-                  <figure className="image is-4by3">
-                    <img src="http://bulma.io/images/placeholders/1280x960.png" alt="content" />
-                  </figure>
-                  <figure className="image is-4by3">
-                    <img src="http://bulma.io/images/placeholders/1280x960.png" alt="content" />
-                  </figure>
-                  <figure className="image is-4by3">
-                    <img src="http://bulma.io/images/placeholders/1280x960.png" alt="content" />
-                  </figure>
+                  { homeMemes.new.map((meme) => {
+                    return (
+                      <figure className="image is-4by3" key={meme.id}>
+                        <img src={meme.data} alt={meme.title} />
+                      </figure>
+                    );
+                  })
+                  }
                 </div>
                 <div className="column">
                   <h2>Memes Aleatoire</h2>
-                  <figure className="image is-4by3">
-                    <img src="http://bulma.io/images/placeholders/1280x960.png" alt="content" />
-                  </figure>
-                  <figure className="image is-4by3">
-                    <img src="http://bulma.io/images/placeholders/1280x960.png" alt="content" />
-                  </figure>
-                  <figure className="image is-4by3">
-                    <img src="http://bulma.io/images/placeholders/1280x960.png" alt="content" />
-                  </figure>
+                  { homeMemes.rand.map((meme) => {
+                    return (
+                      <figure className="image is-4by3" key={meme.id}>
+                        <img src={meme.data} alt={meme.title} />
+                      </figure>
+                    );
+                  })
+                  }
                 </div>
               </div>
             </div>
           </div>
         </section>
+        }
         <div className="container equipe">
           <h1>La Team</h1>
           <hr />
@@ -118,4 +127,11 @@ class Home extends Component {
   }
 }
 
-export default connect()(Home);
+const mapStateToProps = (state) => {
+  return {
+    home: state.home,
+  };
+};
+
+
+export default connect(mapStateToProps)(Home);

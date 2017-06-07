@@ -5,7 +5,16 @@ const uploadMeme = (dispatch, memeData) => {
     const api = new PMApiClient();
 
     api.api('/api/memes', { memeData }, 'POST').then((data) => {
-      console.log(data);
+      resolve();
+    });
+  });
+};
+
+const deleteMeme = (memeId) => {
+  return new Promise((resolve) => {
+    const api = new PMApiClient();
+
+    api.api('/api/memes', { memeId }, 'DELETE').then(() => {
       resolve();
     });
   });
@@ -24,7 +33,8 @@ const fetchUserMemeIfNeeded = (dispatch, userId, curState, force = false) => {
     if (!force && curState.fecthTime) {
       const delay = Date.now() - curState.fecthTime;
 
-      if (delay < 10000) {
+      // Fetch only if the last fetch was 1min ago
+      if (delay < 60000) {
         resolve();
         return;
       }
@@ -34,8 +44,8 @@ const fetchUserMemeIfNeeded = (dispatch, userId, curState, force = false) => {
     setTimeout(() => {
       const api = new PMApiClient();
 
-      api.api(`/api/memes/user/${userId}`).then((data) => {
-        dispatch(setUserMeme(data));
+      api.api(`/api/memes/user/${userId}`).then((response) => {
+        dispatch(setUserMeme(response.data));
         resolve();
       });
     }, 500);
@@ -44,5 +54,6 @@ const fetchUserMemeIfNeeded = (dispatch, userId, curState, force = false) => {
 
 export default {
   uploadMeme,
+  deleteMeme,
   fetchUserMemeIfNeeded,
 };

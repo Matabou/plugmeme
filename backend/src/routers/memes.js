@@ -15,17 +15,43 @@ router.post('/', (req, res) => {
     })
     .catch(() => {
       res.json({success: false});       
-    });
+    }
+  );
+});
+
+router.delete('/', (req, res) => {
+  const memeId = req.body.memeId;
+  
+  db.deleteMeme(memeId)
+    .then(() => {
+      res.json({success: true});       
+    })
+    .catch(() => {
+      res.json({success: false});       
+    }
+  );
 });
 
 router.get('/user/:id', (req, res) => {
   db.getMemeFromUser(req.params.id)
     .then((data) => {
-      res.json(data);       
+      res.json({success: true, data: data});       
     })
     .catch(() => {
       res.json({success: false});       
-    });
+    }
+  );
+});
+
+router.get('/home', (req, res) => {
+  db.getMemeForHome()
+    .then((data) => {
+      res.json({success: true, data: data});       
+    })
+    .catch(() => {
+      res.json({success: false});       
+    }
+  );
 });
 
 module.exports = router;

@@ -12,6 +12,7 @@ class Memes extends Component {
     };
 
     this.fetchMeme = this.fetchMeme.bind(this);
+    this.deleteMeme = this.deleteMeme.bind(this);
   }
 
   componentWillMount() {
@@ -26,6 +27,10 @@ class Memes extends Component {
       this.props.userMemes,
       force,
     ).then(() => this.setState({ loading: false }));
+  }
+
+  deleteMeme(meme) {
+    UserMemesActions.deleteMeme(meme.id).then(() => this.fetchMeme(true));
   }
 
   render() {
@@ -66,7 +71,10 @@ class Memes extends Component {
                         </a>
                       </div>
                       <div className="level-right">
-                        <a className="level-item button is-danger">
+                        <a
+                          className="level-item button is-danger"
+                          onClick={() => this.deleteMeme(meme)}
+                        >
                           <span className="icon">
                             <i className="fa fa-trash" />
                           </span>

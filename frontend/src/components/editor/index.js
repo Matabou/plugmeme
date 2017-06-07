@@ -13,7 +13,7 @@ class Editor extends Component {
     this.handleBottomTextChange = this.handleBottomTextChange.bind(this);
     this.handleImageRefreshed = this.handleImageRefreshed.bind(this);
     this.state = {
-      image: 'http://lorempixel.com/200/200/',
+      image: 'https://imgflip.com/s/meme/Batman-Slapping-Robin.jpg',
       topText: '',
       bottomText: '',
       needRefreshImage: false

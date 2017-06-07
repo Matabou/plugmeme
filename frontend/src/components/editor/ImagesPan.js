@@ -5,12 +5,17 @@ class ImagePan extends Component {
     super(props);
 
     this.images = [
-      'http://www.jqueryscript.net/images/Simplest-Responsive-jQuery-Image-Lightbox-Plugin-simple-lightbox.jpg',
-      'https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg',
-      'https://www.w3schools.com/css/img_fjords.jpg',
-      'https://beebom-redkapmedia.netdna-ssl.com/wp-content/uploads/2016/01/Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg',
-      'http://keenthemes.com/preview/metronic/theme/assets/global/plugins/jcrop/demos/demo_files/image1.jpg',
-      'http://i.stack.imgur.com/WCveg.jpg'
+      'https://imgflip.com/s/meme/Batman-Slapping-Robin.jpg',
+      'https://imgflip.com/s/meme/Ancient-Aliens.jpg',
+      'https://imgflip.com/s/meme/Futurama-Fry.jpg',
+      'https://imgflip.com/s/meme/X-Everywhere.jpg',
+      'https://imgflip.com/s/meme/Leonardo-Dicaprio-Cheers.jpg',
+      'https://imgflip.com/s/meme/That-Would-Be-Great.jpg',
+      'https://imgflip.com/s/meme/Third-World-Skeptical-Kid.jpg',
+      'https://imgflip.com/s/meme/X-All-The-Y.jpg',
+      'https://imgflip.com/s/meme/Say-That-Again-I-Dare-You.jpg',
+      'https://imgflip.com/s/meme/Archer.jpg',
+      'https://imgflip.com/s/meme/Kill-Yourself-Guy.jpg'
     ];
 
     this.selectImage = this.selectImage.bind(this);

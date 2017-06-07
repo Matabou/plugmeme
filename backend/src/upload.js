@@ -1,11 +1,11 @@
 const multer = require('multer');
 
 const uploading = multer({
-  dest: __dirname + '../uploads',
+  dest: __dirname + '/../uploads',
 });
 
-const avatarUpload = uploading.single('avatar');
+const fileUpload = uploading.single('file');
 
 module.exports = {
-  avatarUpload,
+  fileUpload,
 };

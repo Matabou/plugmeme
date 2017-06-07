@@ -12,6 +12,7 @@ router.get('/tokensignin', firebaseAuth.checkToken, (req, res) =>  {
   db.getUser(user.uid)
     .then(data => {
       user.username = data.name;
+      user.avatar = data.avatar;
       res.json(user);          
     })
     .catch(err => console.log(err));
@@ -24,12 +25,23 @@ router.post('/name', firebaseAuth.checkToken, (req, res) =>  {
   db.updateUsername(user.uid, name)
     .then(data => {
       user.username = data.name;
+      user.avatar = data.avatar;
       res.json(user);          
     })
     .catch(err => console.log(err));
 });
 
-router.post('/image', firebaseAuth.checkToken, upload.avatarUpload, (req, res) => {
+router.post('/avatar', firebaseAuth.checkToken, upload.fileUpload, (req, res) => {
+  const user = req.params.user.toJSON();
+  const file = req.file;
+
+  db.updateAvatar(user.uid, file.filename)
+    .then(data => {
+      user.username = data.name;
+      user.avatar = data.avatar;
+      res.json(user);          
+    })
+    .catch(err => console.log(err));
 
 });
 

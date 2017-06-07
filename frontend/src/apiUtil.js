@@ -33,5 +33,24 @@ class PMApiClient {
       .catch(error => reject(error));
     });
   }
+
+  apiImage(url, file, method = 'GET') {
+    return new Promise((resolve, reject) => {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      fetch(this.apiUrl + url, {
+        method: method,
+        headers: {
+          Authorization: this.token,
+        },
+        body: formData,
+      })
+      .then(checkStatus)
+      .then(response => response.json())
+      .then(data => resolve(data))
+      .catch(error => reject(error));
+    });
+  }
 }
 export default PMApiClient;

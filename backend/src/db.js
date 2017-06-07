@@ -6,11 +6,12 @@ con.connect((err) => {
   if (err) throw err;
 });
 
-const sqlInitUsers = 'CREATE TABLE IF NOT EXISTS users (id VARCHAR(255) PRIMARY KEY, name VARCHAR(255), path VARCHAR(255))';
+const sqlInitUsers = 'CREATE TABLE IF NOT EXISTS users (id VARCHAR(255) PRIMARY KEY, name VARCHAR(255), avatar VARCHAR(255))';
 const sqlInitMemes = 'CREATE TABLE IF NOT EXISTS memes (id INT AUTO_INCREMENT PRIMARY KEY, user_id VARCHAR(255), title VARCHAR(255), grade INT, path VARCHAR(255), FOREIGN KEY (user_id) REFERENCES users(id))';
 const sqlSelectUser = 'SELECT * FROM users WHERE id = ?';
 const sqlCreateUser = 'INSERT INTO users (id, name) VALUES (?, ?)';
 const sqlUpdateUserName = 'UPDATE users SET name = ? WHERE id = ?';
+const sqlUpdateAvatar = 'UPDATE users SET avatar = ? WHERE id = ?';
 
 const initDatabase = () => {
 
@@ -33,6 +34,7 @@ const getUser = (id) => {
           resolve({
             id,
             name,
+            avatar: null,
           });
         });
       } else {
@@ -46,10 +48,16 @@ const updateUsername = (id, name) => {
   return new Promise((resolve, reject) => {
     con.query(sqlUpdateUserName, [name, id] , (err, result) => {
       if (err) reject(err);
-      resolve({
-        id,
-        name,
-      });
+      getUser(id).then(user => resolve(user));
+    });
+  });
+}
+
+const updateAvatar = (id, avatar) => {
+  return new Promise((resolve, reject) => {
+    con.query(sqlUpdateAvatar, [avatar, id] , (err, result) => {
+      if (err) reject(err);
+      getUser(id).then(user => resolve(user));
     });
   });
 }
@@ -57,5 +65,6 @@ const updateUsername = (id, name) => {
 module.exports = {
   initDatabase,
   updateUsername,
+  updateAvatar,
   getUser,
 };

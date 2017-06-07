@@ -44,9 +44,22 @@ const updateUsername = (dispatch, name) => {
   });
 };
 
+const updateAvatar = (dispatch, avatar) => {
+  return new Promise((resolve) => {
+    firebase.auth().currentUser.getToken().then((token) => {
+      const api = new PMApiClient(token);
+      api.apiImage('/api/user/avatar', avatar, 'POST').then((userData) => {
+        dispatch(login(userData));
+        resolve();
+      });
+    });
+  });
+};
+
 export default {
   validateUser,
   updateUsername,
+  updateAvatar,
   login,
   failLogin,
   logout,

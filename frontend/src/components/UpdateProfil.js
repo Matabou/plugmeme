@@ -9,21 +9,36 @@ class UpdateProfil extends Component {
 
     this.state = {
       username: '',
-      loading: false,
+      avatar: null,
+      usernameLoading: false,
+      avatarLoading: false,
     };
 
     this.updateUsername = this.updateUsername.bind(this);
-    this.updateUser = this.updateUser.bind(this);
+    this.saveUpdateUsername = this.saveUpdateUsername.bind(this);
+
+    this.updateAvatar = this.updateAvatar.bind(this);
+    this.saveUpdateAvatar = this.saveUpdateAvatar.bind(this);
   }
 
   updateUsername(event) {
     this.setState({ username: event.target.value });
   }
 
-  updateUser() {
-    this.setState({ loading: true });
+  saveUpdateUsername() {
+    this.setState({ usernameLoading: true });
     UserActions.updateUsername(this.props.dispatch, this.state.username)
-      .then(() => this.setState({ loading: false }));
+      .then(() => this.setState({ usernameLoading: false }));
+  }
+
+  updateAvatar(event) {
+    this.setState({ avatar: event.target.files[0] });
+  }
+
+  saveUpdateAvatar() {
+    this.setState({ avatarLoading: true });
+    UserActions.updateAvatar(this.props.dispatch, this.state.avatar)
+      .then(() => this.setState({ avatarLoading: false }));
   }
 
   render() {
@@ -45,7 +60,10 @@ class UpdateProfil extends Component {
             </span>
           </p>
           <p className="control">
-            <a className={this.state.loading ? `${buttonClassName} is-loading` : buttonClassName} onClick={this.updateUser}>
+            <a
+              className={this.state.usernameLoading ? `${buttonClassName} is-loading` : buttonClassName}
+              onClick={this.saveUpdateUsername}
+            >
               <span className="icon">
                 <i className="fa fa-floppy-o" />
               </span>
@@ -54,13 +72,16 @@ class UpdateProfil extends Component {
           </p>
         </div>
         <hr />
-        <label className="label">Photo de Profil</label>
+        <label className="label">Avatar</label>
         <div className="field has-addons">
           <p className="control">
-            <input className="input" type="file" />
+            <input className="input" type="file" name="avatar" onChange={this.updateAvatar} />
           </p>
           <p className="control">
-            <a className="button is-info">
+            <a
+              className={this.state.avatarLoading ? `${buttonClassName} is-loading` : buttonClassName}
+              onClick={this.saveUpdateAvatar}
+            >
               <span className="icon">
                 <i className="fa fa-floppy-o" />
               </span>

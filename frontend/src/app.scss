@@ -1,6 +1,12 @@
 @import "~bulma";
 @import "~font-awesome/scss/font-awesome.scss";
 
+@font-face
+{
+  font-family: plugFont;
+  src: url('impact.ttf')
+}
+
 .title {
   font-size: 45px;
 }

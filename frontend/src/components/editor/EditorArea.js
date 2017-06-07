@@ -27,7 +27,7 @@ class EditorArea extends Component {
     return new fabric.Text(this.props.topText.toUpperCase(), {
       left: 0,
       top: top,
-      fontFamily: 'Impact',
+      fontFamily: 'plugFont',
       fontSize: 50,
       stroke: '#000000',
       strokeWidth: 1,
@@ -35,7 +35,7 @@ class EditorArea extends Component {
       originX: 'center',
       textAlign: 'center',
       fontWeight: 'bold',
-      shadow: '5px 5px 10px rgb(0,0,0)'
+      shadow: '5px 5px 10px rgb(0,0,0)',
     });
   }
 

@@ -4,7 +4,9 @@ const fs = require('fs');
 const minify = require('express-minify');
 
 const db = require('./db');
-const firebaseAuth = require('./firebaseAuth');
+
+const users = require('./routers/user');
+
 
 const app = express();
 
@@ -13,6 +15,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
+
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Authorization");
@@ -20,32 +23,9 @@ app.use(function(req, res, next) {
   next();
 });
 
-var apiRoutes = express.Router();
-
 db.initDatabase();
 
-app.get('/api/tokensignin', firebaseAuth.checkToken, function(request, response) {
-  const user = request.params.user.toJSON();
-
-  db.getUser(user.uid)
-    .then(data => {
-      user.username = data.name;
-      response.json(user);          
-    })
-    .catch(err => console.log(err));
-});
-
-app.post('/api/user/name', firebaseAuth.checkToken, function(request, response) {
-  const user = request.params.user.toJSON();
-  const name = request.body.name;
-
-  db.updateUsername(user.uid, name)
-    .then(data => {
-      user.username = data.name;
-      response.json(user);          
-    })
-    .catch(err => console.log(err));
-});
+app.use('/api/user', users);
 
 // start your server
 app.listen(4242, () => {

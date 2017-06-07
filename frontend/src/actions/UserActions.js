@@ -24,7 +24,7 @@ const logout = () => {
 const validateUser = (dispatch, user) => {
   user.getToken().then((token) => {
     const api = new PMApiClient(token);
-    api.api('/api/tokensignin').then((userData) => {
+    api.api('/api/user/tokensignin').then((userData) => {
       dispatch(login(userData));
     }).catch((error) => {
       dispatch(failLogin(error));

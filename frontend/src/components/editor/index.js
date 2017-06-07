@@ -4,10 +4,12 @@ import { connect } from 'react-redux';
 import ToolsPan from './ToolsPan';
 import ImagesPan from './ImagesPan';
 import EditorArea from './EditorArea';
+import SaveMemeModal from './../modal/SaveMemeModal';
 
-import UserMemesActions from '../../actions/UserMemesActions';
+import ModalActions from '../../actions/ModalActions';
 
 import successKid from '../../../public/media/success-kid.jpg';
+import badLuckBrian from '../../../public/media/bad-luck-brian.jpg';
 
 class Editor extends Component {
   constructor(props) {
@@ -24,12 +26,18 @@ class Editor extends Component {
       name: 'Success Kid',
       src: successKid,
     });
+    this.images.push({
+      id: 2,
+      name: 'Bad Luck Brian',
+      src: badLuckBrian,
+    });
 
     this.state = {
       image: successKid,
       topText: '',
       bottomText: '',
       needRefreshImage: false,
+      finishMeme: null,
     };
   }
 
@@ -51,12 +59,8 @@ class Editor extends Component {
   }
 
   handleFinish(image) {
-    UserMemesActions.uploadMeme(this.props.dispatch, {
-      userId: this.props.user.uid,
-      title: 'First Meme',
-      img: image,
-      share: true,
-    });
+    this.setState({ finishMeme: image });
+    this.props.dispatch(ModalActions.displayModal('SAVE_MEME'));
   }
 
   render() {
@@ -85,6 +89,9 @@ class Editor extends Component {
         <ImagesPan
           images={this.images}
           onImageChange={this.handleImageChange}
+        />
+        <SaveMemeModal
+          finishMeme={this.state.finishMeme}
         />
       </div>
     );

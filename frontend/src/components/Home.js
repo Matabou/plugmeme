@@ -57,9 +57,18 @@ class Home extends Component {
                   <h2>Meilleur Memes</h2>
                   { homeMemes.best.map((meme) => {
                     return (
-                      <figure className="image is-4by3" key={meme.id}>
-                        <img src={meme.data} alt={meme.title} />
-                      </figure>
+                      <div className="card meme" key={meme.id}>
+                        <div className="card-header">
+                          <p className="card-header-title">
+                            {meme.title}
+                          </p>
+                        </div>
+                        <div className="card-image">
+                          <figure className="image">
+                            <img src={meme.data} alt={meme.title} />
+                          </figure>
+                        </div>
+                      </div>
                     );
                   })
                   }
@@ -68,9 +77,18 @@ class Home extends Component {
                   <h2>Nouveaux Memes</h2>
                   { homeMemes.new.map((meme) => {
                     return (
-                      <figure className="image is-4by3" key={meme.id}>
-                        <img src={meme.data} alt={meme.title} />
-                      </figure>
+                      <div className="card meme" key={meme.id}>
+                        <div className="card-header">
+                          <p className="card-header-title">
+                            {meme.title}
+                          </p>
+                        </div>
+                        <div className="card-image">
+                          <figure className="image">
+                            <img src={meme.data} alt={meme.title} />
+                          </figure>
+                        </div>
+                      </div>
                     );
                   })
                   }
@@ -79,9 +97,18 @@ class Home extends Component {
                   <h2>Memes Aleatoire</h2>
                   { homeMemes.rand.map((meme) => {
                     return (
-                      <figure className="image is-4by3" key={meme.id}>
-                        <img src={meme.data} alt={meme.title} />
-                      </figure>
+                      <div className="card meme" key={meme.id}>
+                        <div className="card-header">
+                          <p className="card-header-title">
+                            {meme.title}
+                          </p>
+                        </div>
+                        <div className="card-image">
+                          <figure className="image">
+                            <img src={meme.data} alt={meme.title} />
+                          </figure>
+                        </div>
+                      </div>
                     );
                   })
                   }

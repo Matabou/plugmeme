@@ -20,6 +20,7 @@ const sqlUpdateAvatar = 'UPDATE users SET avatar = ? WHERE id = ?';
 const sqlCreateMeme = 'INSERT INTO memes (user_id, title, grade, share, create_at, data) VALUES (?, ?, ?, ?, ?, ?)';
 const sqlSelectMemesFomUser = 'SELECT id, title, grade, share, data FROM memes WHERE user_id = ? ORDER BY create_at DESC ';
 const sqlDeleteMeme = 'DELETE FROM memes WHERE id = ?';
+const sqlUpdateShareMeme = 'UPDATE memes SET share = ? WHERE id = ?';
 
 const sqlSelectBestThreeMeme = 'SELECT id, title, data FROM memes WHERE share = true ORDER BY grade DESC LIMIT 3';
 const sqlSelectNewThreeMeme = 'SELECT id, title, data FROM memes WHERE share = true ORDER BY create_at DESC LIMIT 3';
@@ -109,6 +110,15 @@ const deleteMeme = (id) => {
   });
 }
 
+const updateShareMeme = (id, share) => {
+  return new Promise((resolve, reject) => {
+    con.query(sqlUpdateShareMeme, [share, id], (err, result) => {
+      if (err) reject(err);
+      resolve(result);
+    });
+  });
+}
+
 const getMemeForHome = () => {
   return new Promise((resolve, reject) => {
     const data = {};
@@ -137,5 +147,6 @@ module.exports = {
   createMeme,
   getMemeFromUser,
   deleteMeme,
+  updateShareMeme,
   getMemeForHome,
 };

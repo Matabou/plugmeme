@@ -4,7 +4,7 @@ const uploadMeme = (dispatch, memeData) => {
   return new Promise((resolve) => {
     const api = new PMApiClient();
 
-    api.api('/api/memes', { memeData }, 'POST').then((data) => {
+    api.api('/api/memes', { memeData }, 'POST').then(() => {
       resolve();
     });
   });
@@ -15,6 +15,16 @@ const deleteMeme = (memeId) => {
     const api = new PMApiClient();
 
     api.api('/api/memes', { memeId }, 'DELETE').then(() => {
+      resolve();
+    });
+  });
+};
+
+const updateMemeShare = (memeId, share) => {
+  return new Promise((resolve) => {
+    const api = new PMApiClient();
+
+    api.api('/api/memes', { memeId, share }, 'PUT').then(() => {
       resolve();
     });
   });
@@ -55,5 +65,6 @@ const fetchUserMemeIfNeeded = (dispatch, userId, curState, force = false) => {
 export default {
   uploadMeme,
   deleteMeme,
+  updateMemeShare,
   fetchUserMemeIfNeeded,
 };

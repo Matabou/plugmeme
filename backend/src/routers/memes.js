@@ -32,6 +32,20 @@ router.delete('/', (req, res) => {
   );
 });
 
+router.put('/', (req, res) => {
+  const memeId = req.body.memeId;
+  const share = req.body.share;
+  
+  db.updateShareMeme(memeId, share)
+    .then(() => {
+      res.json({success: true});       
+    })
+    .catch(() => {
+      res.json({success: false});       
+    }
+  );
+});
+
 router.get('/user/:id', (req, res) => {
   db.getMemeFromUser(req.params.id)
     .then((data) => {

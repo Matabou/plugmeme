@@ -31,7 +31,11 @@ h1 {
 
     figure {
       margin: 10px;
-      margin-bottom: 20px;
+    }
+
+    .card-image {
+      padding-bottom: 5px;
+      margin-bottom: 20px;      
     }
 
     h2 {
@@ -71,6 +75,11 @@ h1 {
   .refresh-button {
     margin-bottom: 20px;
   }
+
+  .card-image {
+      padding-top: 10px;
+    }
+
 }
 
 .pic-container {

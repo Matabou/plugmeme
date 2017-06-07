@@ -76,7 +76,7 @@ class EditorArea extends Component {
             <span className="icon">
               <i className="fa fa-floppy-o" />
             </span>
-            <span>Sauvegarder</span>
+            <span>Create</span>
           </a>
         </div>
       </div>

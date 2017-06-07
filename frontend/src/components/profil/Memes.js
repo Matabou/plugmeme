@@ -9,10 +9,13 @@ class Memes extends Component {
 
     this.state = {
       loading: true,
+      deleteLoading: 0,
+      editLoading: 0,
     };
 
     this.fetchMeme = this.fetchMeme.bind(this);
     this.deleteMeme = this.deleteMeme.bind(this);
+    this.updateShare = this.updateShare.bind(this);
   }
 
   componentWillMount() {
@@ -21,7 +24,7 @@ class Memes extends Component {
 
   fetchMeme(force = false) {
     this.setState({ loading: true });
-    UserMemesActions.fetchUserMemeIfNeeded(
+    return UserMemesActions.fetchUserMemeIfNeeded(
       this.props.dispatch,
       this.props.user.uid,
       this.props.userMemes,
@@ -30,12 +33,24 @@ class Memes extends Component {
   }
 
   deleteMeme(meme) {
-    UserMemesActions.deleteMeme(meme.id).then(() => this.fetchMeme(true));
+    this.setState({ deleteLoading: meme.id });
+    UserMemesActions.deleteMeme(meme.id).then(() => {
+      this.fetchMeme(true).then(() => this.setState({ deleteLoading: 0 }));
+    });
+  }
+
+  updateShare(meme) {
+    this.setState({ editLoading: meme.id });
+    UserMemesActions.updateMemeShare(meme.id, !meme.share).then(() => {
+      this.fetchMeme(true).then(() => this.setState({ editLoading: 0 }));
+    });
   }
 
   render() {
     const memes = this.props.userMemes.memes;
     const buttonClassName = 'level-item button refresh-button is-success';
+    const buttonDeleteClassName = 'level-item button is-danger';
+    const buttonEditClassName = 'level-item button is-success';
 
     return (
       <div className="memes">
@@ -55,24 +70,45 @@ class Memes extends Component {
                   </p>
                 </div>
                 <div className="card-image">
-                  <figure className="image is-4by3">
-                    <img src={meme.data} alt="content" />
+                  <figure className="image">
+                    <img src={meme.data} alt={meme.title} />
                   </figure>
                 </div>
                 <div className="card-content">
                   <div className="content">
                     <nav className="level">
                       <div className="level-left">
-                        <a className="level-item button is-success">
-                          <span className="icon">
-                            <i className="fa fa-share-alt" />
-                          </span>
-                          <span>Partager</span>
-                        </a>
+                        {meme.share ?
+                          <a
+                            className={this.state.editLoading === meme.id ? `${buttonEditClassName} is-loading` : buttonEditClassName}
+                            onClick={() => this.updateShare(meme)}
+                          >
+                            <span className="icon">
+                              <i className="fa fa-user-secret" />
+                            </span>
+                            <span>Make Private</span>
+                          </a>
+                        :
+                          <a
+                            className={this.state.editLoading === meme.id ? `${buttonEditClassName} is-loading` : buttonEditClassName}
+                            onClick={() => this.updateShare(meme)}
+                          >
+                            <span className="icon">
+                              <i className="fa fa-share-alt" />
+                            </span>
+                            <span>Partager</span>
+                          </a>
+                        }
                       </div>
+                      <p className="level-item has-text-centered">
+                        {meme.grade}
+                        <span className="icon">
+                          <i className="fa fa-thumbs-up"></i>
+                        </span>
+                      </p>
                       <div className="level-right">
                         <a
-                          className="level-item button is-danger"
+                          className={this.state.deleteLoading === meme.id ? `${buttonDeleteClassName} is-loading` : buttonDeleteClassName}
                           onClick={() => this.deleteMeme(meme)}
                         >
                           <span className="icon">

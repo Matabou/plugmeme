@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Memes(memes) {
+export default function Memes({ memes }) {
   return (
     <div className="memes">
       {

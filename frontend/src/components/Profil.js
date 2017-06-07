@@ -2,47 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Memes from './Memes';
+import UpdateProfil from './UpdateProfil';
 
 import defaultUserProfilPicture from '../../public/media/default-user-profile.png';
-
-function UpdateProfil() {
-  return (
-    <div>
-      <label className="label">Username</label>
-      <div className="field has-addons">
-        <p className="control has-icons-left">
-          <input className="input" type="text" placeholder="Username" />
-          <span className="icon is-small is-left">
-            <i className="fa fa-user" />
-          </span>
-        </p>
-        <p className="control">
-          <a className="button is-info">
-            <span className="icon">
-              <i className="fa fa-floppy-o" />
-            </span>
-            <span>Sauvegarder</span>
-          </a>
-        </p>
-      </div>
-      <hr />
-      <label className="label">Photo de Profil</label>
-      <div className="field has-addons">
-        <p className="control">
-          <input className="input" type="file" />
-        </p>
-        <p className="control">
-          <a className="button is-info">
-            <span className="icon">
-              <i className="fa fa-floppy-o" />
-            </span>
-            <span>Sauvegarder</span>
-          </a>
-        </p>
-      </div>
-    </div>
-  );
-}
 
 class Profil extends Component {
   constructor(props) {
@@ -86,9 +48,9 @@ class Profil extends Component {
   }
 
   render() {
-    if (!this.props.login.user) return (<div />);
+    if (!this.props.user) return (<div />);
 
-    const { email, username } = this.props.login.user;
+    const { email, username } = this.props.user;
 
     return (
       <div>
@@ -122,7 +84,11 @@ class Profil extends Component {
         <div className="columns">
           <div className="column is-one-quarter" />
           <div className="column is-half">
-            {this.section()}
+            {this.state.curTab === 'profil'
+            ?
+              <UpdateProfil />
+            :
+              <Memes memes={this.state.memes} />}
           </div>
           <div className="column" />
         </div>
@@ -133,7 +99,7 @@ class Profil extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    login: state.login,
+    user: state.user,
   };
 };
 

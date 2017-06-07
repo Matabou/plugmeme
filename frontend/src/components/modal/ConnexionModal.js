@@ -119,7 +119,7 @@ class ConnexionModal extends Component {
 const mapStateToProps = (state) => {
   return {
     modal: state.modal,
-    login: state.login,
+    user: state.user,
   };
 };
 

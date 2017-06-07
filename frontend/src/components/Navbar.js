@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 import firebase from '../firebase';
 
-import LoginActions from '../actions/LoginActions';
+import UserActions from '../actions/UserActions';
 import ModalActions from '../actions/ModalActions';
 
 class Navbar extends Component {
@@ -13,7 +13,7 @@ class Navbar extends Component {
 
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        LoginActions.validateUser(this.props.dispatch, user);
+        UserActions.validateUser(this.props.dispatch, user);
       }
     });
 
@@ -41,7 +41,7 @@ class Navbar extends Component {
     return (
       <nav className="nav has-shadow">
         <div className="container">
-          {this.props.login.user === null || this.props.login.user === undefined ?
+          {this.props.user === null || this.props.user === undefined ?
             <div className="nav-left">
               <NavLink className={path === '/' ? `${navLinkClassName} is-active` : navLinkClassName} to="/">PlugMeme</NavLink>
               <NavLink className={path === '/recherche' ? `${navLinkClassName} is-active` : navLinkClassName} to="/recherche">Recherche</NavLink>
@@ -69,7 +69,7 @@ class Navbar extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    login: state.login,
+    user: state.user,
     router: state.router,
   };
 };

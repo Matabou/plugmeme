@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
-import LoginActions from '../../actions/LoginActions';
+import UserActions from '../../actions/UserActions';
 import ModalActions from '../../actions/ModalActions';
 
 import firebase from '../../firebase';
@@ -36,7 +36,7 @@ class LogoutModal extends Component {
     this.setState({ loading: true });
     firebase.auth().signOut().then(() => {
       this.setState({ loading: false });
-      this.props.dispatch(LoginActions.logout());
+      this.props.dispatch(UserActions.logout());
       this.cancelModal();
     });
   }

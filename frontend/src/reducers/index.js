@@ -1,11 +1,11 @@
 import { routerReducer } from 'react-router-redux';
 
-import login from './login';
+import user from './user';
 import modal from './modal';
 
 const rootReducer = {
   modal,
-  login,
+  user,
   router: routerReducer,
 };
 

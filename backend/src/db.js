@@ -6,9 +6,10 @@ con.connect((err) => {
   if (err) throw err;
 });
 
-const sqlInit = "CREATE TABLE IF NOT EXISTS users (id VARCHAR(255) PRIMARY KEY, name VARCHAR(255))";
+const sqlInit = 'CREATE TABLE IF NOT EXISTS users (id VARCHAR(255) PRIMARY KEY, name VARCHAR(255))';
 const sqlSelectUser = 'SELECT * FROM users WHERE id = ?';
-const sqlCreateUser = `INSERT INTO users (id, name) VALUES (?, ?)`;
+const sqlCreateUser = 'INSERT INTO users (id, name) VALUES (?, ?)';
+const sqlUpdateUserName = 'UPDATE users SET name = ? WHERE id = ?';
 
 const initDatabase = () => {
 
@@ -41,7 +42,20 @@ const getUser = (id) => {
   });
 }
 
+const updateUsername = (id, name) => {
+  return new Promise((resolve, reject) => {
+    con.query(sqlUpdateUserName, [name, id] , (err, result) => {
+      if (err) reject(err);
+      resolve({
+        id,
+        name,
+      });
+    });
+  });
+}
+
 module.exports = {
   initDatabase,
+  updateUsername,
   getUser,
 };

@@ -24,7 +24,7 @@ var apiRoutes = express.Router();
 
 db.initDatabase();
 
-app.get('/api/tokensignin', firebaseAuth.checkToken, function(request,response) {
+app.get('/api/tokensignin', firebaseAuth.checkToken, function(request, response) {
   const user = request.params.user.toJSON();
 
   db.getUser(user.uid)
@@ -35,10 +35,11 @@ app.get('/api/tokensignin', firebaseAuth.checkToken, function(request,response) 
     .catch(err => console.log(err));
 });
 
-app.post('/api/user/name', firebaseAuth.checkToken, function(request,response) {
+app.post('/api/user/name', firebaseAuth.checkToken, function(request, response) {
   const user = request.params.user.toJSON();
+  const name = request.body.name;
 
-  db.getUser(user.uid)
+  db.updateUsername(user.uid, name)
     .then(data => {
       user.username = data.name;
       response.json(user);          

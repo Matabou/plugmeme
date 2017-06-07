@@ -1,3 +1,4 @@
+import firebase from '../firebase';
 import PMApiClient from '../apiUtil';
 
 const login = (user) => {
@@ -24,7 +25,6 @@ const validateUser = (dispatch, user) => {
   user.getToken().then((token) => {
     const api = new PMApiClient(token);
     api.api('/api/tokensignin').then((userData) => {
-      console.log(userData);
       dispatch(login(userData));
     }).catch((error) => {
       dispatch(failLogin(error));
@@ -32,8 +32,21 @@ const validateUser = (dispatch, user) => {
   });
 };
 
+const updateUsername = (dispatch, name) => {
+  return new Promise((resolve) => {
+    firebase.auth().currentUser.getToken().then((token) => {
+      const api = new PMApiClient(token);
+      api.api('/api/user/name', { name }, 'POST').then((userData) => {
+        dispatch(login(userData));
+        resolve();
+      });
+    });
+  });
+};
+
 export default {
   validateUser,
+  updateUsername,
   login,
   failLogin,
   logout,

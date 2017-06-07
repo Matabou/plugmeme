@@ -1,7 +1,7 @@
 const multer = require('multer');
 
 const uploading = multer({
-  dest: __dirname + '/../uploads',
+  dest: __dirname + '/public/uploads',
 });
 
 const fileUpload = uploading.single('file');

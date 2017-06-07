@@ -32,24 +32,57 @@ const validateUser = (dispatch, user) => {
   });
 };
 
-const updateUsername = (dispatch, name) => {
+const updateUsername = (name) => {
+  return {
+    type: 'UPDATE_NAME',
+    name,
+  };
+};
+
+const updateUsernamePromise = (dispatch, name) => {
   return new Promise((resolve) => {
     firebase.auth().currentUser.getToken().then((token) => {
       const api = new PMApiClient(token);
       api.api('/api/user/name', { name }, 'POST').then((userData) => {
-        dispatch(login(userData));
+        dispatch(updateUsername(userData));
         resolve();
       });
     });
   });
 };
 
-const updateAvatar = (dispatch, avatar) => {
+const updateAvatar = (avatar) => {
+  return {
+    type: 'UPDATE_AVATAR',
+    avatar,
+  };
+};
+
+const updateAvatarPromise = (dispatch, avatar) => {
   return new Promise((resolve) => {
     firebase.auth().currentUser.getToken().then((token) => {
       const api = new PMApiClient(token);
       api.apiImage('/api/user/avatar', avatar, 'POST').then((userData) => {
-        dispatch(login(userData));
+        dispatch(updateAvatar(userData));
+        resolve();
+      });
+    });
+  });
+};
+
+const updateAvatarURL = (url) => {
+  return {
+    type: 'UPDATE_AVATAR_URL',
+    url,
+  };
+};
+
+const getAvatarPromise = (dispatch, avatar) => {
+  return new Promise((resolve) => {
+    firebase.auth().currentUser.getToken().then((token) => {
+      const api = new PMApiClient(token);
+      api.api(`/api/user/avatar/${avatar}`, undefined, 'GET', false).then((data) => {
+        dispatch(updateAvatarURL(data.url));
         resolve();
       });
     });
@@ -58,8 +91,9 @@ const updateAvatar = (dispatch, avatar) => {
 
 export default {
   validateUser,
-  updateUsername,
-  updateAvatar,
+  updateUsernamePromise,
+  updateAvatarPromise,
+  getAvatarPromise,
   login,
   failLogin,
   logout,

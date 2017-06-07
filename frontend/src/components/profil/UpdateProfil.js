@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import UserActions from '../actions/UserActions';
+import UserActions from '../../actions/UserActions';
 
 class UpdateProfil extends Component {
   constructor(props) {
@@ -27,7 +27,7 @@ class UpdateProfil extends Component {
 
   saveUpdateUsername() {
     this.setState({ usernameLoading: true });
-    UserActions.updateUsername(this.props.dispatch, this.state.username)
+    UserActions.updateUsernamePromise(this.props.dispatch, this.state.username)
       .then(() => this.setState({ usernameLoading: false }));
   }
 
@@ -37,7 +37,7 @@ class UpdateProfil extends Component {
 
   saveUpdateAvatar() {
     this.setState({ avatarLoading: true });
-    UserActions.updateAvatar(this.props.dispatch, this.state.avatar)
+    UserActions.updateAvatarPromise(this.props.dispatch, this.state.avatar)
       .then(() => this.setState({ avatarLoading: false }));
   }
 
@@ -46,6 +46,7 @@ class UpdateProfil extends Component {
 
     return (
       <div>
+        {this.state.src && <img alt="plop" src={this.state.src} />}
         <label className="label">Username</label>
         <div className="field has-addons">
           <p className="control has-icons-left">

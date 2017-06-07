@@ -17,7 +17,7 @@ class PMApiClient {
     this.apiUrl = apiUrl || 'http://localhost:4242';
   }
 
-  api(url, params, method = 'GET') {
+  api(url, params, method = 'GET', isJson = true) {
     return new Promise((resolve, reject) => {
       fetch(this.apiUrl + url, {
         method: method,
@@ -28,7 +28,7 @@ class PMApiClient {
         body: JSON.stringify(params),
       })
       .then(checkStatus)
-      .then(response => response.json())
+      .then(response => (isJson ? response.json() : response))
       .then(data => resolve(data))
       .catch(error => reject(error));
     });

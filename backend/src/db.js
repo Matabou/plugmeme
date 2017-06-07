@@ -48,7 +48,7 @@ const updateUsername = (id, name) => {
   return new Promise((resolve, reject) => {
     con.query(sqlUpdateUserName, [name, id] , (err, result) => {
       if (err) reject(err);
-      getUser(id).then(user => resolve(user));
+      resolve(name);
     });
   });
 }
@@ -57,7 +57,7 @@ const updateAvatar = (id, avatar) => {
   return new Promise((resolve, reject) => {
     con.query(sqlUpdateAvatar, [avatar, id] , (err, result) => {
       if (err) reject(err);
-      getUser(id).then(user => resolve(user));
+      resolve(avatar);
     });
   });
 }

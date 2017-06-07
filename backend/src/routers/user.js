@@ -24,11 +24,13 @@ router.post('/name', firebaseAuth.checkToken, (req, res) =>  {
 
   db.updateUsername(user.uid, name)
     .then(data => {
-      user.username = data.name;
-      user.avatar = data.avatar;
-      res.json(user);          
+      res.json(data);          
     })
     .catch(err => console.log(err));
+});
+
+router.get('/avatar/:avatar', (req, res) => {
+  res.sendFile(`./${req.params.avatar}`, { root: __dirname + '/../public/uploads' });
 });
 
 router.post('/avatar', firebaseAuth.checkToken, upload.fileUpload, (req, res) => {
@@ -37,12 +39,9 @@ router.post('/avatar', firebaseAuth.checkToken, upload.fileUpload, (req, res) =>
 
   db.updateAvatar(user.uid, file.filename)
     .then(data => {
-      user.username = data.name;
-      user.avatar = data.avatar;
-      res.json(user);          
+      res.json(data);          
     })
     .catch(err => console.log(err));
-
 });
 
 module.exports = router;

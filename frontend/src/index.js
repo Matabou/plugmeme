@@ -17,7 +17,7 @@ import LogoutModal from './components/modal/LogoutModal';
 
 import Home from './components/Home';
 import Editor from './components/editor';
-import Profil from './components/Profil';
+import Profil from './components/profil';
 import Recherche from './components/Recherche';
 
 import './app.scss';

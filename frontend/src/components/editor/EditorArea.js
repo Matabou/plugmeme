@@ -5,11 +5,17 @@ class EditorArea extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      plop: null,
+    };
+
     this.refreshCanvas = this.refreshCanvas.bind(this);
 
     this.fabricCanvas = new fabric.Canvas(this.refs.canvas);
     this.topTextObj = this.getTextObj(10);
     this.bottomTextObj = this.getTextObj(500);
+
+    this.finishMeme = this.finishMeme.bind(this);
   }
 
   componentDidMount() {
@@ -39,6 +45,10 @@ class EditorArea extends Component {
     });
   }
 
+  finishMeme() {
+    this.props.onFinish(this.fabricCanvas.toDataURL('png'));
+  }
+
   refreshCanvas() {
     this.fabricCanvas.backgroundImage.scaleToWidth(this.fabricCanvas.width);
     this.fabricCanvas.backgroundImage.scaleToHeight(this.fabricCanvas.height);
@@ -62,7 +72,7 @@ class EditorArea extends Component {
           <canvas ref="canvas" width="900" height="600" />
         </div>
         <div className="tile is-vertical is-4">
-          <a className="level-item button is-success">
+          <a className="level-item button is-success" onClick={this.finishMeme}>
             <span className="icon">
               <i className="fa fa-floppy-o" />
             </span>

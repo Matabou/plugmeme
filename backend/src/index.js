@@ -6,15 +6,18 @@ const minify = require('express-minify');
 const db = require('./db');
 
 const users = require('./routers/user');
-
+const memes = require('./routers/memes');
 
 const app = express();
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({
-    extended: true
+  limit: '50mb',
+  extended: true
 }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({
+  limit: '50mb'
+}));
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -26,6 +29,7 @@ app.use(function(req, res, next) {
 db.initDatabase();
 
 app.use('/api/user', users);
+app.use('/api/memes', memes);
 
 app.get('/api/image/:id', (req, res) => {
   res.sendFile(`./${req.params.id}`, { root: __dirname + '/public/uploads' });

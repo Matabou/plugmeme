@@ -23,22 +23,22 @@ class ToolsPan extends Component {
       <div className="level-left">
         <div className="box">
           <div className="field">
-            <label className="label">Top text</label>
             <p className="control">
-              <input
+              <textarea
                 className="input"
-                type="text"
+                autoComplete="false"
+                placeholder="Text haut"
                 value={topText}
                 onChange={this.handleTopTextChange}
               />
             </p>
           </div>
           <div className="field">
-            <label className="label">Bottom text</label>
             <p className="control">
-              <input
+              <textarea
                 className="input"
-                type="text"
+                autoComplete="false"
+                placeholder="Text bas"
                 value={bottomText}
                 onChange={this.handleBottomTextChange}
               />

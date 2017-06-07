@@ -8,24 +8,8 @@ class EditorArea extends Component {
     this.refreshCanvas = this.refreshCanvas.bind(this);
 
     this.fabricCanvas = new fabric.Canvas(this.refs.canvas);
-    this.topTextObj = new fabric.Text(this.props.topText.toUpperCase(), {
-      left: 300,
-      top: 100,
-      fontFamily: 'Impact',
-      fontSize: 50,
-      stroke: '#000000',
-      strokeWidth: 1,
-      fill: '#ffffff'
-    });
-    this.bottomTextObj = new fabric.Text(this.props.bottomText.toUpperCase(), {
-      left: 300,
-      top: 400,
-      fontFamily: 'Impact',
-      fontSize: 50,
-      stroke: '#000000',
-      strokeWidth: 1,
-      fill: '#ffffff'
-    });
+    this.topTextObj = this.getTextObj(10);
+    this.bottomTextObj = this.getTextObj(500);
   }
 
   componentDidMount() {
@@ -35,6 +19,24 @@ class EditorArea extends Component {
     });
     this.fabricCanvas.add(this.topTextObj);
     this.fabricCanvas.add(this.bottomTextObj);
+    this.topTextObj.centerH();
+    this.bottomTextObj.centerH();
+  }
+
+  getTextObj(top) {
+    return new fabric.Text(this.props.topText.toUpperCase(), {
+      left: 0,
+      top: top,
+      fontFamily: 'Impact',
+      fontSize: 50,
+      stroke: '#000000',
+      strokeWidth: 1,
+      fill: '#ffffff',
+      originX: 'center',
+      textAlign: 'center',
+      fontWeight: 'bold',
+      shadow: '5px 5px 10px rgb(0,0,0)'
+    });
   }
 
   refreshCanvas() {
@@ -58,6 +60,14 @@ class EditorArea extends Component {
       <div className="column">
         <div className="box">
           <canvas ref="canvas" width="900" height="600" />
+        </div>
+        <div className="tile is-vertical is-4">
+          <a className="level-item button is-success">
+            <span className="icon">
+              <i className="fa fa-floppy-o" />
+            </span>
+            <span>Sauvegarder</span>
+          </a>
         </div>
       </div>
     );

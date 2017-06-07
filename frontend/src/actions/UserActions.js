@@ -70,30 +70,10 @@ const updateAvatarPromise = (dispatch, avatar) => {
   });
 };
 
-const updateAvatarURL = (url) => {
-  return {
-    type: 'UPDATE_AVATAR_URL',
-    url,
-  };
-};
-
-const getAvatarPromise = (dispatch, avatar) => {
-  return new Promise((resolve) => {
-    firebase.auth().currentUser.getToken().then((token) => {
-      const api = new PMApiClient(token);
-      api.api(`/api/user/avatar/${avatar}`, undefined, 'GET', false).then((data) => {
-        dispatch(updateAvatarURL(data.url));
-        resolve();
-      });
-    });
-  });
-};
-
 export default {
   validateUser,
   updateUsernamePromise,
   updateAvatarPromise,
-  getAvatarPromise,
   login,
   failLogin,
   logout,

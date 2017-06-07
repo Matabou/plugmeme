@@ -15,7 +15,7 @@ class ImagePan extends Component {
       'https://imgflip.com/s/meme/X-All-The-Y.jpg',
       'https://imgflip.com/s/meme/Say-That-Again-I-Dare-You.jpg',
       'https://imgflip.com/s/meme/Archer.jpg',
-      'https://imgflip.com/s/meme/Kill-Yourself-Guy.jpg'
+      'https://imgflip.com/s/meme/Kill-Yourself-Guy.jpg',
     ];
 
     this.selectImage = this.selectImage.bind(this);

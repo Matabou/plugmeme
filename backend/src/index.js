@@ -27,6 +27,10 @@ db.initDatabase();
 
 app.use('/api/user', users);
 
+app.get('/api/image/:id', (req, res) => {
+  res.sendFile(`./${req.params.id}`, { root: __dirname + '/public/uploads' });
+});
+
 // start your server
 app.listen(4242, () => {
   console.log('PlugMeme app listening on port 4242!');

@@ -15,12 +15,6 @@ const user = (state = {}, action) => {
       return {
         ...state,
         avatar: action.avatar,
-        url: undefined,
-      };
-    case 'UPDATE_AVATAR_URL':
-      return {
-        ...state,
-        url: action.url,
       };
     default:
       return state;

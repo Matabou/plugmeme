@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import Memes from './Memes';
 import UpdateProfil from './UpdateProfil';
 
-import UserActions from '../../actions/UserActions';
-
 import defaultUserProfilPicture from '../../../public/media/default-user-profile.png';
 
 class Profil extends Component {
@@ -34,14 +32,6 @@ class Profil extends Component {
     this.changeTab = this.changeTab.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.user !== nextProps.user) {
-      if (!nextProps.user.url) {
-        UserActions.getAvatarPromise(this.props.dispatch, nextProps.user.avatar);
-      }
-    }
-  }
-
   changeTab(newTab) {
     this.setState({ curTab: newTab });
   }
@@ -60,7 +50,7 @@ class Profil extends Component {
   render() {
     if (!this.props.user) return (<div />);
 
-    const { email, username, url } = this.props.user;
+    const { email, username, avatar } = this.props.user;
 
     return (
       <div>
@@ -70,7 +60,7 @@ class Profil extends Component {
               <div className="has-text-centered">
                 <figure className="image image-is-centered is-128x128">
                   <img
-                    src={url || defaultUserProfilPicture}
+                    src={avatar ? `http://localhost:4242/api/image/${avatar}` : defaultUserProfilPicture}
                     className="is-centered" alt="profile"
                   />
                 </figure>

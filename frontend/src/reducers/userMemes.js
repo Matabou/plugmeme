@@ -3,7 +3,7 @@ const userMemes = (state = {}, action) => {
     case 'SET_USER_MEME':
       return {
         ...state,
-        festhTime: action.festhTime,
+        fecthTime: action.fecthTime,
         memes: action.memes,
       };
     default:

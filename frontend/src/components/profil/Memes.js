@@ -7,14 +7,39 @@ class Memes extends Component {
   constructor(props) {
     super(props);
 
-    UserMemesActions.fetchUserMemeIfNeeded(this.props.dispatch, this.props.user.uid);
+    this.state = {
+      loading: true,
+    };
+
+    this.fetchMeme = this.fetchMeme.bind(this);
+  }
+
+  componentWillMount() {
+    this.fetchMeme();
+  }
+
+  fetchMeme(force = false) {
+    this.setState({ loading: true });
+    UserMemesActions.fetchUserMemeIfNeeded(
+      this.props.dispatch,
+      this.props.user.uid,
+      this.props.userMemes,
+      force,
+    ).then(() => this.setState({ loading: false }));
   }
 
   render() {
     const memes = this.props.userMemes.memes;
+    const buttonClassName = 'level-item button refresh-button is-success';
 
     return (
       <div className="memes">
+        <a className={this.state.loading ? `${buttonClassName} is-loading` : buttonClassName} onClick={() => this.fetchMeme(true)}>
+          <span className="icon">
+            <i className="fa fa-refresh" />
+          </span>
+          <span>Refresh</span>
+        </a>
         { memes &&
           memes.map((meme) => {
             return (

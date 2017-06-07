@@ -14,19 +14,31 @@ const uploadMeme = (dispatch, memeData) => {
 const setUserMeme = (memes) => {
   return {
     type: 'SET_USER_MEME',
-    festhTime: Date.now(),
+    fecthTime: Date.now(),
     memes,
   };
 };
 
-const fetchUserMemeIfNeeded = (dispatch, userId) => {
+const fetchUserMemeIfNeeded = (dispatch, userId, curState, force = false) => {
   return new Promise((resolve) => {
-    const api = new PMApiClient();
+    if (!force && curState.fecthTime) {
+      const delay = Date.now() - curState.fecthTime;
 
-    api.api(`/api/memes/user/${userId}`).then((data) => {
-      dispatch(setUserMeme(data));
-      resolve();
-    });
+      if (delay < 10000) {
+        resolve();
+        return;
+      }
+    }
+
+    // Just to display this nice loader ^^
+    setTimeout(() => {
+      const api = new PMApiClient();
+
+      api.api(`/api/memes/user/${userId}`).then((data) => {
+        dispatch(setUserMeme(data));
+        resolve();
+      });
+    }, 500);
   });
 };
 

@@ -7,6 +7,7 @@ const db = require('./db');
 
 const users = require('./routers/user');
 const memes = require('./routers/memes');
+const halloffame = require('./routers/halloffame');
 
 const app = express();
 
@@ -30,6 +31,7 @@ db.initDatabase();
 
 app.use('/api/user', users);
 app.use('/api/memes', memes);
+app.use('/api/halloffame', halloffame);
 
 app.get('/api/image/:id', (req, res) => {
   res.sendFile(`./${req.params.id}`, { root: __dirname + '/public/uploads' });

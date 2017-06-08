@@ -8,11 +8,11 @@ const setSearchMeme = (memes) => {
   };
 };
 
-const fetchSearchMeme = (dispatch, title, sort) => {
+const fetchSearchMeme = (dispatch, title, creator, sort) => {
   return new Promise((resolve) => {
     const api = new PMApiClient();
 
-    api.api('/api/memes/search', { title, sort }, 'POST').then((response) => {
+    api.api('/api/memes/search', { title, creator, sort }, 'POST').then((response) => {
       dispatch(setSearchMeme(response.data));
       resolve();
     });
@@ -30,7 +30,24 @@ const updateMemeGrade = (memeId, inc) => {
 };
 
 
+const incSearchLoading = (id, inc) => {
+  return {
+    type: 'INC_SEARCH_LOADING',
+    id,
+    inc,
+  };
+};
+
+const resetSearchLoading = (id) => {
+  return {
+    type: 'RESET_SEARCH_LOADING',
+    id,
+  };
+};
+
 export default {
   fetchSearchMeme,
   updateMemeGrade,
+  resetSearchLoading,
+  incSearchLoading,
 };

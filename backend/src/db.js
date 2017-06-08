@@ -149,8 +149,8 @@ const getMemeForHome = () => {
   });
 }
 
-const getMemeSearch = (title, sort) => {
-  const sqlSelectSearchMeme = `SELECT id, title, grade, data FROM memes WHERE share = true AND title LIKE '%${title}%' ORDER BY ${sort} DESC`;  
+const getMemeSearch = (title, creator, sort) => {
+  const sqlSelectSearchMeme = `SELECT memes.id, title, grade, name, data FROM memes JOIN users on memes.user_id = users.id WHERE share = true AND title LIKE '%${title}%' AND name LIKE '%${creator}%' ORDER BY ${sort} DESC`;  
 
   return new Promise((resolve, reject) => {
     con.query(sqlSelectSearchMeme, (err, result) => {

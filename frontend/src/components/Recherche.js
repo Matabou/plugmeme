@@ -9,21 +9,36 @@ class Recherche extends Component {
 
     this.state = {
       title: '',
+      creator: '',
       sort: 'pop',
       loading: false,
       likeLoading: null,
-      likeReloading: null,
     };
 
     this.updateTitle = this.updateTitle.bind(this);
+    this.updateCreator = this.updateCreator.bind(this);
     this.updateSort = this.updateSort.bind(this);
     this.applySearch = this.applySearch.bind(this);
     this.addLike = this.addLike.bind(this);
-    this.progressLoading = this.progressLoading.bind(this);
+    this.increasLoading = this.increasLoading.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.search !== this.props) {
+      if (nextProps.search.loading) {
+        nextProps.search.loading.forEach((el, key) => {
+          if (el >= 1000) this.props.dispatch(SearchActions.resetSearchLoading(key));
+        });
+      }
+    }
   }
 
   updateTitle(event) {
     this.setState({ title: event.target.value });
+  }
+
+  updateCreator(event) {
+    this.setState({ creator: event.target.value });
   }
 
   updateSort(event) {
@@ -35,6 +50,7 @@ class Recherche extends Component {
     return SearchActions.fetchSearchMeme(
       this.props.dispatch,
       this.state.title,
+      this.state.creator,
       this.state.sort === 'pop',
     ).then(() => this.setState({ loading: false }));
   }
@@ -48,25 +64,18 @@ class Recherche extends Component {
     ).then(() => this.applySearch()
       .then(() => {
         this.setState({ likeLoading: null });
-        this.setState({ likeReloading: 1 });
-        this.progressLoading();
+        this.props.dispatch(SearchActions.incSearchLoading(meme.id, 1));
       }),
     );
   }
 
-  progressLoading() {
-    this.setState({ likeReloading: this.state.likeReloading + 1 });
-    setTimeout(() => {
-      if (this.state.likeReloading >= 100) {
-        this.setState({ likeReloading: null });
-      } else {
-        this.progressLoading();
-      }
-    }, 100);
+  increasLoading(meme) {
+    this.props.dispatch(SearchActions.incSearchLoading(meme.id, 20));
   }
 
   render() {
-    const memes = this.props.search.memes;
+    const { memes, loading } = this.props.search;
+
     const buttonClassName = 'button is-success';
     const buttonLikeClassName = 'level-item button is-success';
     const buttonUnLikeClassName = 'level-item button is-danger';
@@ -85,6 +94,17 @@ class Recherche extends Component {
                     type="text"
                     value={this.state.title}
                     onChange={this.updateTitle}
+                  />
+                </p>
+              </div>
+              <div className="field">
+                <label className="label">Creator</label>
+                <p className="control">
+                  <input
+                    className="input"
+                    type="text"
+                    value={this.state.creator}
+                    onChange={this.updateCreator}
                   />
                 </p>
               </div>
@@ -111,6 +131,12 @@ class Recherche extends Component {
                         <p className="card-header-title">
                           {meme.title}
                         </p>
+                        <a className="card-header-icon">
+                          <span className="icon">
+                            <i className="fa fa-user"></i>
+                          </span>
+                          by {meme.name}
+                        </a>
                       </div>
                       <div className="card-image">
                         <figure className="image">
@@ -119,8 +145,22 @@ class Recherche extends Component {
                       </div>
                       <div className="card-content">
                         <div className="content">
-                          {this.state.likeReloading ?
-                            <progress className="progress is-large" value={this.state.likeReloading} max="100" />
+                          {loading && loading[meme.id] ?
+                            <div>
+                              <progress
+                                className="progress is-large"
+                                value={loading[meme.id]}
+                                max="1000"
+                              />
+                              <a
+                                className={buttonLikeClassName}
+                                onClick={() => this.increasLoading(meme)}
+                              >
+                                <span className="icon">
+                                  <i className="fa fa-hand-o-down" />
+                                </span>
+                              </a>
+                            </div>
                           :
                             <nav className="level">
                               <div className="level-left">

@@ -84,10 +84,11 @@ router.get('/home', (req, res) => {
 
 router.post('/search', (req, res) => {
   const title = req.body.title;
+  const creator = req.body.creator;
 
   const sort = req.body.sort ? 'grade' : 'create_at';
 
-  db.getMemeSearch(title, sort)
+  db.getMemeSearch(title, creator, sort)
     .then((data) => {
       res.json({success: true, data: data});       
     })

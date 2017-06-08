@@ -90,4 +90,10 @@ h1 {
 
 .recherche {
   margin-top: 20px;
+
+  .card-header-title {
+    span {
+      font-size: 10px;
+    }
+  }
 }

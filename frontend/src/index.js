@@ -19,6 +19,7 @@ import Home from './components/Home';
 import Editor from './components/editor';
 import Profil from './components/profil';
 import Recherche from './components/Recherche';
+import HallOfFame from './components/HallOfFame';
 
 import './app.scss';
 
@@ -44,6 +45,7 @@ render(
         <Route path="/editeur" component={Editor} />
         <Route path="/profil" component={Profil} />
         <Route path="/recherche" component={Recherche} />
+        <Route path="/halloffame" component={HallOfFame} />
         <LoginModal />
         <LogoutModal />
         <InscriptionModal />

@@ -118,7 +118,7 @@ class Recherche extends Component {
                 <span className="icon">
                   <i className="fa fa-search" />
                 </span>
-                <span>Rechercher</span>
+                <span>Search</span>
               </a>
             </div>
             {memes &&

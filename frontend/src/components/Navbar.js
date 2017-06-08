@@ -53,9 +53,9 @@ class Navbar extends Component {
           :
             <div className="nav-left">
               <NavLink className={path === '/' ? `${navLinkClassName} is-active` : navLinkClassName} to="/">PlugMeme</NavLink>
-              <NavLink className={path === '/editeur' ? `${navLinkClassName} is-active` : navLinkClassName} to="/editeur">Editeur</NavLink>
+              <NavLink className={path === '/editeur' ? `${navLinkClassName} is-active` : navLinkClassName} to="/editeur">Editor</NavLink>
               <NavLink className={path === '/profil' ? `${navLinkClassName} is-active` : navLinkClassName} to="/profil">Profil</NavLink>
-              <NavLink className={path === '/recherche' ? `${navLinkClassName} is-active` : navLinkClassName} to="/recherche">Recherche</NavLink>
+              <NavLink className={path === '/recherche' ? `${navLinkClassName} is-active` : navLinkClassName} to="/recherche">Search</NavLink>
               <NavLink className={path === '/halloffame' ? `${navLinkClassName} is-active` : navLinkClassName} to="/halloffame">Hall of Fame</NavLink>
               <div className="nav-right nav-menu">
                 <a className="nav-item is-tab" onClick={this.displayLogout}>Logout</a>

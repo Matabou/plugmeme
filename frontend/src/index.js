@@ -19,7 +19,7 @@ import Home from './components/Home';
 import Editor from './components/editor';
 import Profil from './components/profil';
 import Recherche from './components/Recherche';
-import HallOfFame from './components/HallOfFame';
+import HallOfFame from './components/hallOfFame';
 
 import './app.scss';
 

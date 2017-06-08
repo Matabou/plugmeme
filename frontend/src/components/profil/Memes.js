@@ -96,7 +96,7 @@ class Memes extends Component {
                             <span className="icon">
                               <i className="fa fa-share-alt" />
                             </span>
-                            <span>Partager</span>
+                            <span>Share</span>
                           </a>
                         }
                       </div>
@@ -114,7 +114,7 @@ class Memes extends Component {
                           <span className="icon">
                             <i className="fa fa-trash" />
                           </span>
-                          <span>Supprimer</span>
+                          <span>Delete</span>
                         </a>
                       </div>
                     </nav>

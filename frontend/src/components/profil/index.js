@@ -77,10 +77,10 @@ class Profil extends Component {
         <div className="tabs is-centered">
           <ul>
             <li className={this.state.curTab === 'profil' && 'is-active'}>
-              <a onClick={() => this.changeTab('profil')}>Mon Profil</a>
+              <a onClick={() => this.changeTab('profil')}>My Profil</a>
             </li>
             <li className={this.state.curTab === 'memes' && 'is-active'}>
-              <a onClick={() => this.changeTab('memes')}>Mes Memes</a>
+              <a onClick={() => this.changeTab('memes')}>My Memes</a>
             </li>
           </ul>
         </div>

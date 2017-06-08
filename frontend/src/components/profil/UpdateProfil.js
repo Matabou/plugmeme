@@ -68,7 +68,7 @@ class UpdateProfil extends Component {
               <span className="icon">
                 <i className="fa fa-floppy-o" />
               </span>
-              <span>Sauvegarder</span>
+              <span>Save</span>
             </a>
           </p>
         </div>
@@ -86,7 +86,7 @@ class UpdateProfil extends Component {
               <span className="icon">
                 <i className="fa fa-floppy-o" />
               </span>
-              <span>Sauvegarder</span>
+              <span>Save</span>
             </a>
           </p>
         </div>

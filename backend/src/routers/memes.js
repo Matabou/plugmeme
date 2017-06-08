@@ -13,8 +13,8 @@ router.post('/', (req, res) => {
     .then(() => {
       res.json({success: true});       
     })
-    .catch(() => {
-      res.json({success: false});       
+    .catch((err) => {
+      res.json({success: false, err});       
     }
   );
 });
@@ -26,8 +26,8 @@ router.delete('/', (req, res) => {
     .then(() => {
       res.json({success: true});       
     })
-    .catch(() => {
-      res.json({success: false});       
+    .catch((err) => {
+      res.json({success: false, err});       
     }
   );
 });
@@ -40,8 +40,22 @@ router.put('/', (req, res) => {
     .then(() => {
       res.json({success: true});       
     })
-    .catch(() => {
-      res.json({success: false});       
+    .catch((err) => {
+      res.json({success: false, err});       
+    }
+  );
+});
+
+router.post('/grade', (req, res) => {
+  const memeId = req.body.memeId;
+  const inc = req.body.inc;
+  
+  db.updateGradeMeme(memeId, inc)
+    .then(() => {
+      res.json({success: true});       
+    })
+    .catch((err) => {
+      res.json({success: false, err});       
     }
   );
 });
@@ -51,8 +65,8 @@ router.get('/user/:id', (req, res) => {
     .then((data) => {
       res.json({success: true, data: data});       
     })
-    .catch(() => {
-      res.json({success: false});       
+    .catch((err) => {
+      res.json({success: false, err});       
     }
   );
 });
@@ -62,8 +76,23 @@ router.get('/home', (req, res) => {
     .then((data) => {
       res.json({success: true, data: data});       
     })
-    .catch(() => {
-      res.json({success: false});       
+    .catch((err) => {
+      res.json({success: false, err});       
+    }
+  );
+});
+
+router.post('/search', (req, res) => {
+  const title = req.body.title;
+
+  const sort = req.body.sort ? 'grade' : 'create_at';
+
+  db.getMemeSearch(title, sort)
+    .then((data) => {
+      res.json({success: true, data: data});       
+    })
+    .catch((err) => {
+      res.json({success: false, err});       
     }
   );
 });

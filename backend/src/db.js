@@ -21,6 +21,7 @@ const sqlCreateMeme = 'INSERT INTO memes (user_id, title, grade, share, create_a
 const sqlSelectMemesFomUser = 'SELECT id, title, grade, share, data FROM memes WHERE user_id = ? ORDER BY create_at DESC ';
 const sqlDeleteMeme = 'DELETE FROM memes WHERE id = ?';
 const sqlUpdateShareMeme = 'UPDATE memes SET share = ? WHERE id = ?';
+const sqlUpdateGradeMeme = 'UPDATE memes SET grade = grade + ? WHERE id = ?';
 
 const sqlSelectBestThreeMeme = 'SELECT id, title, data FROM memes WHERE share = true ORDER BY grade DESC LIMIT 3';
 const sqlSelectNewThreeMeme = 'SELECT id, title, data FROM memes WHERE share = true ORDER BY create_at DESC LIMIT 3';
@@ -119,6 +120,15 @@ const updateShareMeme = (id, share) => {
   });
 }
 
+const updateGradeMeme = (id, inc) => {
+  return new Promise((resolve, reject) => {
+    con.query(sqlUpdateGradeMeme, [inc, id], (err, result) => {
+      if (err) reject(err);
+      resolve(result);
+    });
+  });
+}
+
 const getMemeForHome = () => {
   return new Promise((resolve, reject) => {
     const data = {};
@@ -139,6 +149,17 @@ const getMemeForHome = () => {
   });
 }
 
+const getMemeSearch = (title, sort) => {
+  const sqlSelectSearchMeme = `SELECT id, title, grade, data FROM memes WHERE share = true AND title LIKE '%${title}%' ORDER BY ${sort} DESC`;  
+
+  return new Promise((resolve, reject) => {
+    con.query(sqlSelectSearchMeme, (err, result) => {
+      if (err) reject(err);
+      resolve(result);
+    });
+  });
+}
+
 module.exports = {
   initDatabase,
   updateUsername,
@@ -148,5 +169,7 @@ module.exports = {
   getMemeFromUser,
   deleteMeme,
   updateShareMeme,
+  updateGradeMeme,
   getMemeForHome,
+  getMemeSearch,
 };

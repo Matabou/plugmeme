@@ -43,8 +43,7 @@ const fetchUserMemeIfNeeded = (dispatch, userId, curState, force = false) => {
     if (!force && curState.fecthTime) {
       const delay = Date.now() - curState.fecthTime;
 
-      // Fetch only if the last fetch was 1min ago
-      if (delay < 60000) {
+      if (delay < 20000) {
         resolve();
         return;
       }

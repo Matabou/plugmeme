@@ -81,7 +81,7 @@ const createMeme = (data) => {
     con.query(sqlCreateMeme, [
         data.userId,
         data.title,
-        Math.floor(Math.random() * 9) + 1, // put back 0
+        0,
         data.share,
         new Date().toISOString().slice(0, 19).replace('T', ' '),
         data.img

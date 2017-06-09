@@ -9,7 +9,7 @@ import bronzeMedal from '../../../public/media/bronze-medal.png';
 class Podium extends Component {
   render() {
     const { title, scoreUnit, users } = this.props.curBest;
-
+    if (users.length < 3) { return (<div />); }
     return (
       <div className="podium">
         <div className="has-text-centered">

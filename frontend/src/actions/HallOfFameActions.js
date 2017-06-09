@@ -7,7 +7,7 @@ const setHOFMostLiked = (mostLikedUsers) => {
   };
 };
 
-const fetchHomeMemeIfNeeded = (dispatch, curState) => {
+const fetchHOFMostLiked = (dispatch) => {
   return new Promise((resolve) => {
     const api = new PMApiClient();
 
@@ -19,5 +19,5 @@ const fetchHomeMemeIfNeeded = (dispatch, curState) => {
 };
 
 export default {
-  fetchHomeMemeIfNeeded,
+  fetchHOFMostLiked,
 };

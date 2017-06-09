@@ -1,4 +1,4 @@
-const home = (state = {}, action) => {
+const halloffame = (state = {}, action) => {
   switch (action.type) {
     case 'SET_HOF_MOSTLIKED':
       return {
@@ -10,4 +10,4 @@ const home = (state = {}, action) => {
   }
 };
 
-export default home;
+export default halloffame;

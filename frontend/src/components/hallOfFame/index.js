@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import HOFActions from '../../actions/HallOfFameActions';
 
 import Podium from './podium';
 
@@ -6,53 +9,58 @@ class HallOfFame extends Component {
   constructor(props) {
     super(props);
 
-    const bestclickers = [];
-    bestclickers.push({
-      name: 'Arthur Lehuen',
-      score: 128,
-    });
-    bestclickers.push({
-      name: 'Antoine Cormerais',
-      score: 108,
-    });
-    bestclickers.push({
-      name: 'Alexandre Chabrolin',
-      score: 98,
-    });
-    bestclickers.push({
-      name: 'Thibault Deutsch',
-      score: 73,
-    });
-    bestclickers.push({
-      name: 'Bob',
-      score: 55,
-    });
-    bestclickers.push({
-      name: 'Arnaud Lemettre',
-      score: 40,
-    });
-
     const bestClicker = {
       title: 'Best Clicker',
       scoreUnit: 'clicks',
-      users: bestclickers,
+      users: [],
     };
 
     const bestCreator = {
       title: 'Best Creator',
       scoreUnit: 'likes',
-      users: bestclickers,
+      users: [],
     };
 
     this.state = {
       curTab: 'mostclicked',
       curBest: bestClicker,
-      bestClicker,
+      bestClicker: bestClicker,
       bestCreator,
     };
 
     this.changeTab = this.changeTab.bind(this);
   }
+  componentWillMount() {
+    HOFActions.fetchHOFMostLiked(
+      this.props.dispatch,
+    );
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.halloffame !== this.props.halloffame) {
+      if (nextProps.halloffame.mostLikedUsers) {
+        console.log('before', nextProps.halloffame.mostLikedUsers);
+        // Use this form because previous state is needed, doesn't work better though :(
+        this.setState(prevState =>
+          ({
+            bestClicker: {
+              ...prevState.bestClicker,
+              users: nextProps.halloffame.mostLikedUsers,
+            },
+          }, console.log('updated', this.state)),
+        );
+
+        /*
+        this.setState({
+          bestClicker: {
+            ...this.state.bestClicker,
+            users: nextProps.halloffame.mostLikedUsers,
+          },
+        }, console.log('updated', this.state));*/
+      }
+    }
+  }
+
 
   changeTab(newTab) {
     this.setState({
@@ -89,4 +97,12 @@ class HallOfFame extends Component {
     );
   }
 }
-export default HallOfFame;
+
+const mapStateToProps = (state) => {
+  return {
+    halloffame: state.halloffame,
+  };
+};
+
+
+export default connect(mapStateToProps)(HallOfFame);

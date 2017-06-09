@@ -5,6 +5,7 @@ import home from './home';
 import user from './user';
 import userMemes from './userMemes';
 import search from './search';
+import halloffame from './halloffame';
 
 const rootReducer = {
   modal,
@@ -12,6 +13,7 @@ const rootReducer = {
   user,
   userMemes,
   search,
+  halloffame,
   router: routerReducer,
 };
 

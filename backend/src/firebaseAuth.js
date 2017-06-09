@@ -20,7 +20,6 @@ const checkToken = (req, res, next) => {
         next()
     })
     .catch(function(error) {
-      console.log("Error fetching user data:", error);
       return res.json({ success: false, message: 'Failed to fetch user data.' });  
     });
   }).catch(function(error) {

@@ -27,7 +27,7 @@ const sqlSelectBestThreeMeme = 'SELECT id, title, data FROM memes WHERE share = 
 const sqlSelectNewThreeMeme = 'SELECT id, title, data FROM memes WHERE share = true ORDER BY create_at DESC LIMIT 3';
 const sqlSelectRandThreeMeme = 'SELECT id, title, data FROM memes WHERE share = true ORDER BY RAND() DESC LIMIT 3';
 
-const sqlSelectMostLikedUsers = 'SELECT name ,sum(grade) as sum FROM memes INNER JOIN users ON memes.user_id = users.id GROUP BY user_id ORDER BY sum(grade) DESC;'
+const sqlSelectMostLikedUsers = 'SELECT name ,sum(grade) as sum FROM memes INNER JOIN users ON memes.user_id = users.id GROUP BY user_id ORDER BY sum DESC;'
 
 
 const initDatabase = () => {
@@ -154,7 +154,7 @@ const getMemeForHome = () => {
 
 const getMostLikedUsers = () => {
   return new Promise((resolve, reject) => {
-    con.query(sqlSelectMemesFomUser, (err, result) => {
+    con.query(sqlSelectMostLikedUsers, (err, result) => {
       if (err) reject(err);         
       resolve(result);
     });

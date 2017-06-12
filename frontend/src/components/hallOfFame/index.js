@@ -12,13 +12,13 @@ class HallOfFame extends Component {
     const bestClicker = {
       title: 'Best Clicker',
       scoreUnit: 'clicks',
-      users: [],
+      users: null,
     };
 
     const bestCreator = {
       title: 'Best Creator',
       scoreUnit: 'likes',
-      users: [],
+      users: null,
     };
 
     this.state = {
@@ -34,30 +34,29 @@ class HallOfFame extends Component {
     HOFActions.fetchHOFMostLiked(
       this.props.dispatch,
     );
+
+    HOFActions.fetchHOFMostClicked(
+      this.props.dispatch,
+    );
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.halloffame !== this.props.halloffame) {
-      if (nextProps.halloffame.mostLikedUsers) {
-        console.log('before', nextProps.halloffame.mostLikedUsers);
-        // Use this form because previous state is needed, doesn't work better though :(
-        this.setState(prevState =>
-          ({
-            bestClicker: {
-              ...prevState.bestClicker,
-              users: nextProps.halloffame.mostLikedUsers,
-            },
-          }, console.log('updated', this.state)),
-        );
+    if (nextProps.halloffame.mostLikedUsers) {
+      this.setState({
+        bestCreator: {
+          ...this.state.bestCreator,
+          users: nextProps.halloffame.mostLikedUsers,
+        },
+      });
+    }
 
-        /*
-        this.setState({
-          bestClicker: {
-            ...this.state.bestClicker,
-            users: nextProps.halloffame.mostLikedUsers,
-          },
-        }, console.log('updated', this.state));*/
-      }
+    if (nextProps.halloffame.mostClicksUsers) {
+      this.setState({
+        bestClicker: {
+          ...this.state.bestClicker,
+          users: nextProps.halloffame.mostClicksUsers,
+        },
+      });
     }
   }
 

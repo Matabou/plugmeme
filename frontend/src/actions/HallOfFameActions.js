@@ -8,16 +8,29 @@ const setHOFMostLiked = (mostLikedUsers) => {
 };
 
 const fetchHOFMostLiked = (dispatch) => {
-  return new Promise((resolve) => {
-    const api = new PMApiClient();
+  const api = new PMApiClient();
 
-    api.api('/api/halloffame/mostliked').then((response) => {
-      dispatch(setHOFMostLiked(response.data));
-      resolve();
-    });
+  api.api('/api/halloffame/mostliked').then((response) => {
+    dispatch(setHOFMostLiked(response.data));
+  });
+};
+
+const setHOFMostClicks = (mostClicksUsers) => {
+  return {
+    type: 'SET_HOF_MOSTCLICKS',
+    mostClicksUsers,
+  };
+};
+
+const fetchHOFMostClicked = (dispatch) => {
+  const api = new PMApiClient();
+
+  api.api('/api/halloffame/mostclicks').then((response) => {
+    dispatch(setHOFMostClicks(response.data));
   });
 };
 
 export default {
   fetchHOFMostLiked,
+  fetchHOFMostClicked,
 };

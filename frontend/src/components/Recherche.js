@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import SearchActions from '../actions/SearchActions';
+import UserActions from '../actions/UserActions';
 
 class Recherche extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      accu: 0,
       title: '',
       creator: '',
       sort: 'pop',
@@ -31,6 +33,12 @@ class Recherche extends Component {
         });
       }
     }
+  }
+
+  componentWillUnmount() {
+    UserActions.updateClicks(this.state.accu);
+
+    this.setState({ accu: 0 });
   }
 
   updateTitle(event) {
@@ -70,6 +78,7 @@ class Recherche extends Component {
   }
 
   increasLoading(meme) {
+    this.setState({ accu: this.state.accu + 1 });
     this.props.dispatch(SearchActions.incSearchLoading(meme.id, 20));
   }
 

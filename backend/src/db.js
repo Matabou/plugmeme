@@ -7,7 +7,7 @@ con.connect((err) => {
 });
 
 
-const sqlInitUsers = 'CREATE TABLE IF NOT EXISTS users (id VARCHAR(255) PRIMARY KEY, name VARCHAR(255), avatar VARCHAR(255))';
+const sqlInitUsers = 'CREATE TABLE IF NOT EXISTS users (id VARCHAR(255) PRIMARY KEY, name VARCHAR(255), avatar VARCHAR(255), clicks LONG)';
 const sqlInitMemes = 'CREATE TABLE IF NOT EXISTS memes (id INT AUTO_INCREMENT PRIMARY KEY, user_id VARCHAR(255), title VARCHAR(255), grade INT, share BOOLEAN, create_at DATETIME, data LONGTEXT, FOREIGN KEY (user_id) REFERENCES users(id))';
 
 
@@ -15,6 +15,7 @@ const sqlSelectUser = 'SELECT * FROM users WHERE id = ?';
 const sqlCreateUser = 'INSERT INTO users (id, name) VALUES (?, ?)';
 const sqlUpdateUserName = 'UPDATE users SET name = ? WHERE id = ?';
 const sqlUpdateAvatar = 'UPDATE users SET avatar = ? WHERE id = ?';
+const sqlUpdateClicks = 'UPDATE users SET clicks = clicks + ? WHERE id = ?';
 
 
 const sqlCreateMeme = 'INSERT INTO memes (user_id, title, grade, share, create_at, data) VALUES (?, ?, ?, ?, ?, ?)';
@@ -27,7 +28,8 @@ const sqlSelectBestThreeMeme = 'SELECT id, title, data FROM memes WHERE share = 
 const sqlSelectNewThreeMeme = 'SELECT id, title, data FROM memes WHERE share = true ORDER BY create_at DESC LIMIT 3';
 const sqlSelectRandThreeMeme = 'SELECT id, title, data FROM memes WHERE share = true ORDER BY RAND() DESC LIMIT 3';
 
-const sqlSelectMostLikedUsers = 'SELECT name ,sum(grade) as sum FROM memes INNER JOIN users ON memes.user_id = users.id GROUP BY user_id ORDER BY sum DESC;'
+const sqlSelectMostLikedUsers = 'SELECT name ,sum(grade) as score FROM memes INNER JOIN users ON memes.user_id = users.id GROUP BY user_id ORDER BY score DESC;'
+const sqlSelectMostClickerUsers = 'SELECT name ,clicks as score FROM users ORDER BY clicks DESC;'
 
 
 const initDatabase = () => {
@@ -52,6 +54,7 @@ const getUser = (id) => {
             id,
             name,
             avatar: null,
+            clicks: 0,
           });
         });
       } else {
@@ -75,6 +78,15 @@ const updateAvatar = (id, avatar) => {
     con.query(sqlUpdateAvatar, [avatar, id] , (err, result) => {
       if (err) reject(err);
       resolve(avatar);
+    });
+  });
+}
+
+const updateClicks = (id, total) => {
+  return new Promise((resolve, reject) => {
+    con.query(sqlUpdateClicks, [total, id] , (err, result) => {
+      if (err) reject(err);
+      resolve(total);
     });
   });
 }
@@ -161,6 +173,15 @@ const getMostLikedUsers = () => {
   });
 }
 
+const getMostClickerUser = () => {
+  return new Promise((resolve, reject) => {
+    con.query(sqlSelectMostClickerUsers, (err, result) => {
+      if (err) reject(err);         
+      resolve(result);
+    });
+  });
+}
+
 const getMemeSearch = (title, creator, sort) => {
   const sqlSelectSearchMeme = `SELECT memes.id, title, grade, name, data FROM memes JOIN users on memes.user_id = users.id WHERE share = true AND title LIKE '%${title}%' AND name LIKE '%${creator}%' ORDER BY ${sort} DESC`;  
 
@@ -176,6 +197,7 @@ module.exports = {
   initDatabase,
   updateUsername,
   updateAvatar,
+  updateClicks,
   getUser,
   createMeme,
   getMemeFromUser,
@@ -185,4 +207,5 @@ module.exports = {
   getMemeForHome,
   getMemeSearch,
   getMostLikedUsers,
+  getMostClickerUser,
 };

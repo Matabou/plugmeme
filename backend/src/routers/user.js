@@ -40,4 +40,15 @@ router.post('/avatar', firebaseAuth.checkToken, upload.fileUpload, (req, res) =>
     .catch(err => console.log(err));
 });
 
+router.post('/clicks', firebaseAuth.checkToken, (req, res) =>  {
+  const user = req.params.user.toJSON();
+  const clicks = req.body.clicks;
+
+  db.updateClicks(user.uid, clicks)
+    .then(data => {
+      res.json(data);          
+    })
+    .catch(err => console.log(err));
+});
+
 module.exports = router;

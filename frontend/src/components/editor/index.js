@@ -25,6 +25,7 @@ import amITheOnlyOneAroundHere from '../../../public/media/Am-I-The-Only-One-Aro
 import ancientAliens from '../../../public/media/Ancient-Aliens.jpg';
 import futuramaFry from '../../../public/media/Futurama-Fry.jpg';
 import batman from '../../../public/media/15lggb.jpg';
+import youCantIfYouDont from '../../../public/media/you-cant-if-you-dont.jpg';
 
 
 
@@ -122,6 +123,11 @@ class Editor extends Component {
       id: 17,
       name: 'batman',
       src: batman,
+    });
+    this.images.push({
+      id: 18,
+      name: 'youCantIfYouDont',
+      src: youCantIfYouDont,
     });
 
 

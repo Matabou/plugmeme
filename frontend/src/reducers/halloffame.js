@@ -5,6 +5,11 @@ const halloffame = (state = {}, action) => {
         ...state,
         mostLikedUsers: action.mostLikedUsers,
       };
+    case 'SET_HOF_MOSTCLICKS':
+      return {
+        ...state,
+        mostClicksUsers: action.mostClicksUsers,
+      };
     default:
       return state;
   }

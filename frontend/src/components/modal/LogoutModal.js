@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
+import { push } from 'react-router-redux';
 
 import UserActions from '../../actions/UserActions';
 import ModalActions from '../../actions/ModalActions';

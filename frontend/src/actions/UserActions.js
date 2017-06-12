@@ -70,10 +70,18 @@ const updateAvatarPromise = (dispatch, avatar) => {
   });
 };
 
+const updateClicks = (clicks) => {
+  firebase.auth().currentUser.getToken().then((token) => {
+    const api = new PMApiClient(token);
+    api.api('/api/user/clicks', { clicks }, 'POST');
+  });
+};
+
 export default {
   validateUser,
   updateUsernamePromise,
   updateAvatarPromise,
+  updateClicks,
   login,
   failLogin,
   logout,

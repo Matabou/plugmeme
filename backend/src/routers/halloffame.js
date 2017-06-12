@@ -18,6 +18,17 @@ router.get('/mostliked', (req, res) => {
   );
 });
 
+router.get('/mostclicks', (req, res) => {
+  db.getMostClickerUser()
+    .then((data) => {
+      res.json({success: true, data: data});       
+    })
+    .catch((err) => {
+      res.json({success: false, err});       
+    }
+  );
+});
+
 
 
 module.exports = router;

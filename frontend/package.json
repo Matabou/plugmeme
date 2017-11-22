@@ -5,7 +5,7 @@
   "author": "plugTeam",
   "license": "MIT",
   "scripts": {
-    "start": "./node_modules/.bin/webpack-dev-server --config ./config/webpack/server.js --progress -w",
+    "start": "./node_modules/.bin/webpack-dev-server  --host 0.0.0.0 --config ./config/webpack/server.js --progress -w",
     "build": "./node_modules/.bin/webpack --config ./config/webpack/build.js"
   },
   "dependencies": {

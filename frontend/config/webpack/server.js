@@ -30,6 +30,8 @@ module.exports = {
     // match the output path
     publicPath: '/',
     historyApiFallback: true,
+    // Not the safest way
+    disableHostCheck: true,
   },
 
   module: {
